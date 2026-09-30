@@ -1,0 +1,6 @@
+{
+  "name": "Nkana College Of Applied Sciences And Education - Bed Space Management System",
+  "description": "Comprehensive Bed Space & Hostel Management System for Nkana College Of Applied Sciences And Education, featuring real-time room occupancy tracking, student allocation, mobile money/card payments, check-in/out alerts, and daily PDF reports.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
