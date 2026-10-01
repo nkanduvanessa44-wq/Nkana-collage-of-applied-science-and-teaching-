@@ -16,7 +16,37 @@ import { Footer } from './components/Footer';
 import { BedPaymentExpiryAlertUI } from './components/BedPaymentExpiryAlertUI';
 
 const AppContent: React.FC = () => {
-  const { activeTab } = useApp();
+  const { activeTab, setActiveTab } = useApp();
+
+  React.useEffect(() => {
+    // Support direct route links (e.g., /apply, /track, /portal, /hostel, /programs)
+    const params = new URLSearchParams(window.location.search);
+    const tabParam = params.get('tab');
+    if (tabParam) {
+      setActiveTab(tabParam as any);
+      return;
+    }
+    const path = window.location.pathname.toLowerCase().replace(/\/$/, '');
+    if (path === '/apply' || path === '/online-admission') {
+      setActiveTab('online_admission');
+    } else if (path === '/track' || path === '/application-tracker') {
+      setActiveTab('application_tracker');
+    } else if (path === '/portal' || path === '/portal/login' || path === '/login') {
+      setActiveTab('portal_login');
+    } else if (path === '/hostel' || path === '/bed-spaces' || path === '/beds') {
+      setActiveTab('bed_spaces');
+    } else if (path === '/student-portal' || path === '/resident-pass') {
+      setActiveTab('student_resident_pass');
+    } else if (path === '/programs' || path === '/faculties') {
+      setActiveTab('programs');
+    } else if (path === '/about') {
+      setActiveTab('about');
+    } else if (path === '/faq') {
+      setActiveTab('faq');
+    } else if (path === '/contact') {
+      setActiveTab('contact');
+    }
+  }, [setActiveTab]);
 
   return (
     <div className="min-h-screen bg-[#F1F5F9] text-slate-900 flex flex-col font-sans antialiased">

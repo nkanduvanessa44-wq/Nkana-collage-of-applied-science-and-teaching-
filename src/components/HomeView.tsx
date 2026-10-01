@@ -1,5 +1,6 @@
 import React from 'react';
 import { useApp } from '../context/AppContext';
+import { Programs } from './Programs';
 import {
   Building2,
   Bed,
@@ -300,7 +301,7 @@ export const HomeView: React.FC = () => {
       </section>
 
       {/* Main Two Modules Feature Strip: 1. Bed Space Module | 2. Online Admission Module */}
-      <section className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <section className="grid grid-cols-1 md:grid-cols-2 gap-6 pb-6">
         {/* Module 1: Bed Space Management Module */}
         <div className="bg-white rounded-3xl p-6 sm:p-8 border border-sky-200 shadow-sm space-y-4 hover:border-sky-400 transition-all flex flex-col justify-between">
           <div className="space-y-3">
@@ -424,50 +425,8 @@ export const HomeView: React.FC = () => {
         </div>
       </section>
 
-      {/* Academic Faculties Grid */}
-      <section className="bg-white rounded-3xl p-6 sm:p-8 border border-sky-100 shadow-sm space-y-4">
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 border-b border-slate-100 pb-3">
-          <div>
-            <span className="text-xs font-bold uppercase tracking-wider text-sky-700">
-              Direct Entry Diplomas
-            </span>
-            <h2 className="text-xl font-extrabold text-slate-900">
-              Faculties at <span className="text-sky-700">Nkana College Of Applied </span><span className="text-orange-600">Sciences And Education</span>
-            </h2>
-          </div>
-          <button
-            onClick={() => setActiveTab('programs')}
-            className="text-xs font-bold text-sky-700 hover:underline flex items-center gap-1"
-          >
-            <span>View All Programs & Requirements</span>
-            <ArrowRight className="w-3 h-3" />
-          </button>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-          {[
-            { title: 'Registered Nursing Diploma (RN)', duration: '3 Years Full-Time', council: 'NMCZ Accredited' },
-            { title: 'Certified Midwifery Diploma', duration: '2 Years Full-Time', council: 'NMCZ Accredited' },
-            { title: 'Clinical Medicine Diploma', duration: '3 Years Full-Time', council: 'HPCZ Accredited' },
-            { title: 'Biomedical Laboratory Sciences', duration: '3 Years Full-Time', council: 'HPCZ Accredited' },
-            { title: 'Primary Teachers Diploma', duration: '3 Years Full-Time', council: 'TCZ Accredited' },
-            { title: 'Higher Diploma in Health Education', duration: '2 Years In-Service', council: 'Postgraduate Directorate' }
-          ].map((prog, idx) => (
-            <div key={idx} className="p-4 bg-sky-50/50 rounded-xl border border-sky-100 flex justify-between items-center hover:bg-sky-50 transition-colors">
-              <div>
-                <h4 className="text-xs font-bold text-slate-900">{prog.title}</h4>
-                <p className="text-[11px] text-slate-500">{prog.duration} • {prog.council}</p>
-              </div>
-              <button
-                onClick={() => setActiveTab('online_admission')}
-                className="px-2 py-1 text-[11px] font-bold text-sky-700 hover:bg-white rounded border border-sky-200"
-              >
-                Apply
-              </button>
-            </div>
-          ))}
-        </div>
-      </section>
+      {/* Academic Faculties Grid & Program Directory */}
+      <Programs />
 
       {/* Residential Halls & Live Dorm Availability Cards */}
       <section className="space-y-4">
