@@ -40,7 +40,7 @@ export const INITIAL_HOSTEL_HALLS: HostelHall[] = [
     description: 'Modern men’s residential block featuring spacious ventilated rooms, outdoor sports pavilion access, and proximity to lecture theaters.',
     wardenName: 'Mr. Peter Mwewa',
     wardenPhone: '+260 978 305 672',
-    image: '/src/assets/images/nkana_actual_campus_1790778970206.jpg',
+    image: '/src/assets/images/nkana_dormitory_hostel_1790746770090.jpg',
     amenities: ['Fiber Internet', 'Table Tennis & Recreation', 'DSTV Common Room', 'Borehole Water Backup', 'Card-Access Entry']
   },
   {
@@ -54,7 +54,7 @@ export const INITIAL_HOSTEL_HALLS: HostelHall[] = [
     description: 'Executive accommodation for final-year primary teaching diplomates and clinical officers seeking quiet, self-contained living spaces.',
     wardenName: 'Dean Joseph Kabwe',
     wardenPhone: '+260 955 119 403',
-    image: '/src/assets/images/nkana_lecture_hall_1790779019428.jpg',
+    image: '/src/assets/images/nkana_campus_main_1790746724657.jpg',
     amenities: ['Self-Contained En-Suite', 'Study Desks & Bookshelves', 'Daily Housekeeping', 'Priority Maintenance', 'Air Circulation System']
   }
 ];
@@ -784,7 +784,7 @@ export const INITIAL_ALERTS: CheckInOutAlert[] = [
     bedNumber: 'Bed 1 (Window)',
     staffName: 'Automated Bed Expiry Monitoring System',
     notes: 'Urgent: Bed payment of K2,400 expires in 3 days (03 Oct 2026). Renewal reminder triggered.',
-    read: false,
+    read: true,
     expiryDate: '2026-10-03',
     daysRemaining: 3,
     amountDueZMW: 2400
@@ -800,7 +800,7 @@ export const INITIAL_ALERTS: CheckInOutAlert[] = [
     bedNumber: 'Bed 1',
     staffName: 'Automated Bed Expiry Monitoring System',
     notes: 'Critical Final Notice: Bed payment expires TODAY (30 Sep 2026). Immediate renewal required.',
-    read: false,
+    read: true,
     expiryDate: '2026-09-30',
     daysRemaining: 0,
     amountDueZMW: 2300
@@ -816,7 +816,7 @@ export const INITIAL_ALERTS: CheckInOutAlert[] = [
     bedNumber: 'Bed 1',
     staffName: 'Matron Charity Chilufya',
     notes: 'Checked in, student ID verified, room key A202-1 issued, mattress condition good.',
-    read: false
+    read: true
   },
   {
     id: 'alert-2',
@@ -829,7 +829,7 @@ export const INITIAL_ALERTS: CheckInOutAlert[] = [
     bedNumber: 'Bed 2',
     staffName: 'Automated Airtel MoMo Gateway',
     notes: 'Payment of K2,300 received via Airtel Money. Reference AIRTEL-NK-332918.',
-    read: false
+    read: true
   },
   {
     id: 'alert-3',
@@ -914,13 +914,13 @@ export const INITIAL_ADMISSION_APPLICATIONS: import('../types').AdmissionApplica
     gender: 'male',
     phone: '+260 976 441 902',
     email: 'limbikani.banda@gmail.com',
-    residentialAddress: 'Plot 482, Riverside, Kitwe, Zambia',
+    residentialAddress: 'Plot 482, Riverside, Copperbelt, Zambia',
     nextOfKinName: 'Pastor Patrick Banda',
     nextOfKinPhone: '+260 977 882 110',
     nextOfKinRelation: 'Father',
     programChoice: 'Registered Nursing Diploma',
     intakeSession: 'January 2027 Full-Time',
-    previousSchool: 'Kitwe Boys Secondary School',
+    previousSchool: 'Nkana Secondary School',
     completionYear: '2024',
     results: [
       { subject: 'English Language', grade: 'Two (2)' },
@@ -934,7 +934,7 @@ export const INITIAL_ADMISSION_APPLICATIONS: import('../types').AdmissionApplica
       { id: 'doc-1', type: 'nrc', label: 'National Registration Card (NRC)', fileName: 'nrc_front_back_banda.pdf', fileSize: '1.4 MB', uploadedAt: '2026-09-28 10:14' },
       { id: 'doc-2', type: 'ecz_results', label: 'ECZ Grade 12 Statement of Results', fileName: 'ecz_grade12_statement_2024.pdf', fileSize: '2.1 MB', uploadedAt: '2026-09-28 10:16' },
       { id: 'doc-3', type: 'passport_photo', label: 'Passport Photo', fileName: 'limbikani_portrait.jpg', fileSize: '850 KB', uploadedAt: '2026-09-28 10:18' },
-      { id: 'doc-4', type: 'medical_report', label: 'Medical Fitness Examination Report', fileName: 'kitwe_central_hospital_fit.pdf', fileSize: '1.8 MB', uploadedAt: '2026-09-28 10:20' }
+      { id: 'doc-4', type: 'medical_report', label: 'Medical Fitness Examination Report', fileName: 'certified_hospital_medical_fit.pdf', fileSize: '1.8 MB', uploadedAt: '2026-09-28 10:20' }
     ],
     applicationFeeZMW: 150,
     paymentStatus: 'paid',
@@ -954,7 +954,7 @@ export const INITIAL_ADMISSION_APPLICATIONS: import('../types').AdmissionApplica
     gender: 'female',
     phone: '+260 965 229 841',
     email: 'mapalo.chishimba@outlook.com',
-    residentialAddress: 'House 14, Nkana West, Kitwe',
+    residentialAddress: 'House 14, Nkana West, Zambia',
     nextOfKinName: 'Mrs. Gertrude Chishimba',
     nextOfKinPhone: '+260 966 331 442',
     nextOfKinRelation: 'Mother',

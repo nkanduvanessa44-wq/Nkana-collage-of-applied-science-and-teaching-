@@ -205,7 +205,7 @@ export interface AdmissionApplication {
   nextOfKinPhone: string;
   nextOfKinRelation: string;
   programChoice: string;
-  intakeSession: 'January 2027 Full-Time' | 'July 2026 Mid-Year' | 'Distance Learning';
+  intakeSession: 'January Main Intake (Full-Time)' | 'July/August Mid-Year Intake' | 'Distance / In-Service Intake' | string;
   previousSchool: string;
   completionYear: string;
   results: AcademicSubjectResult[];

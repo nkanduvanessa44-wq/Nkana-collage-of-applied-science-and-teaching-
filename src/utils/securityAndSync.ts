@@ -122,7 +122,11 @@ export async function decryptData(ciphertext: string): Promise<string> {
 }
 
 // Real-Time Cross-Device / Multi-Tab Synchronization
-type SyncCallback = (event: { type: string; payload: any; timestamp: number }) => void;
+type SyncCallback = (event: { type: string; payload: any; senderTabId?: string; timestamp: number }) => void;
+
+const TAB_CLIENT_ID = typeof window !== 'undefined'
+  ? `tab_${Date.now()}_${Math.random().toString(36).substring(2, 8)}`
+  : 'server_tab';
 
 class RealtimeSyncManager {
   private channel: BroadcastChannel | null = null;
@@ -165,6 +169,7 @@ class RealtimeSyncManager {
     const event = {
       type,
       payload,
+      senderTabId: TAB_CLIENT_ID,
       timestamp: Date.now()
     };
 
@@ -176,18 +181,19 @@ class RealtimeSyncManager {
       }
     }
 
-    // Trigger localStorage event as fallback
+    // Trigger localStorage event as fallback for other tabs
     try {
       localStorage.setItem(`${STORAGE_PREFIX}sync_trigger`, JSON.stringify(event));
     } catch {
       // ignore
     }
-
-    // Call local listeners as well
-    this.notifyListeners(event);
   }
 
   private notifyListeners(data: any) {
+    if (!data || data.senderTabId === TAB_CLIENT_ID) {
+      // Ignore messages broadcast by this same tab
+      return;
+    }
     this.listeners.forEach((listener) => {
       try {
         listener(data);

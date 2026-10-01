@@ -11,6 +11,7 @@ import {
   MapPin,
   ArrowRight
 } from 'lucide-react';
+import { FAQView } from './FAQView';
 
 export const AboutView: React.FC = () => {
   const { setActiveTab } = useApp();
@@ -22,7 +23,7 @@ export const AboutView: React.FC = () => {
         <div className="relative h-72 sm:h-80 flex items-end">
           <img
             src="/src/assets/images/nkana_actual_campus_1790778970206.jpg"
-            alt="Nkana College of Applied Sciences and Education Campus Grounds in Kitwe"
+            alt="Nkana College of Applied Sciences and Education Campus Grounds"
             referrerPolicy="no-referrer"
             className="absolute inset-0 w-full h-full object-cover object-center"
           />
@@ -33,10 +34,10 @@ export const AboutView: React.FC = () => {
               Institutional Heritage & Excellence
             </span>
             <h1 className="text-2xl sm:text-4xl font-black mt-2">
-              About Nkana College Of Applied Sciences And Education
+              About <span className="text-sky-300">Nkana College Of Applied </span><span className="text-orange-400">Sciences And Education</span>
             </h1>
             <p className="text-xs sm:text-sm text-sky-100 max-w-2xl mt-1">
-              Established in Kitwe, Copperbelt Province, Zambia, training compassionate healthcare professionals, registered nurses, and dedicated educators.
+              Located at Plot No. 7562, 27th Street, Nkana East, Kitwe, Zambia (near Mpelembe Secondary School), training compassionate registered nurses, midwives, clinicians, environmental health technologists, and dedicated educators.
             </p>
           </div>
         </div>
@@ -110,15 +111,58 @@ export const AboutView: React.FC = () => {
           </div>
         </div>
 
-        <div className="rounded-2xl overflow-hidden shadow-sm border border-slate-200">
-          <img
-            src="/src/assets/images/nkana_clinical_students_1790778996968.jpg"
-            alt="Nursing and Healthcare students at Nkana College"
-            referrerPolicy="no-referrer"
-            className="w-full h-80 object-cover"
-          />
+        <div className="grid grid-cols-2 gap-3">
+          <div className="rounded-2xl overflow-hidden shadow-xs border border-slate-200 group">
+            <img
+              src="/src/assets/images/nkana_college_gate_1790746735611.jpg"
+              alt="Nkana College Entrance Gate"
+              referrerPolicy="no-referrer"
+              className="w-full h-40 object-cover group-hover:scale-105 transition-transform duration-300"
+            />
+            <div className="p-2.5 bg-white text-center">
+              <span className="text-[10px] font-bold text-slate-800">College Entrance Gate</span>
+            </div>
+          </div>
+          <div className="rounded-2xl overflow-hidden shadow-xs border border-slate-200 group">
+            <img
+              src="/src/assets/images/nkana_clinical_students_1790778996968.jpg"
+              alt="Nursing and Healthcare students at Nkana College"
+              referrerPolicy="no-referrer"
+              className="w-full h-40 object-cover group-hover:scale-105 transition-transform duration-300"
+            />
+            <div className="p-2.5 bg-white text-center">
+              <span className="text-[10px] font-bold text-slate-800">Nursing & Midwifery Cohort</span>
+            </div>
+          </div>
+          <div className="rounded-2xl overflow-hidden shadow-xs border border-slate-200 group">
+            <img
+              src="/src/assets/images/nkana_medical_students_1790746758786.jpg"
+              alt="Medical and Clinical students at Nkana College"
+              referrerPolicy="no-referrer"
+              className="w-full h-40 object-cover group-hover:scale-105 transition-transform duration-300"
+            />
+            <div className="p-2.5 bg-white text-center">
+              <span className="text-[10px] font-bold text-slate-800">Clinical Medicine Trainees</span>
+            </div>
+          </div>
+          <div className="rounded-2xl overflow-hidden shadow-xs border border-slate-200 group">
+            <img
+              src="/src/assets/images/nkana_students_library_1790746747471.jpg"
+              alt="Students in library at Nkana College"
+              referrerPolicy="no-referrer"
+              className="w-full h-40 object-cover group-hover:scale-105 transition-transform duration-300"
+            />
+            <div className="p-2.5 bg-white text-center">
+              <span className="text-[10px] font-bold text-slate-800">Library & Research Hall</span>
+            </div>
+          </div>
         </div>
       </div>
+
+      {/* Embedded Comprehensive Student FAQ Component */}
+      <section className="pt-6 border-t border-slate-200">
+        <FAQView isEmbedded={true} />
+      </section>
     </div>
   );
 };

@@ -106,7 +106,7 @@ export const calculateDaysRemaining = (expiryDateStr?: string, refDateStr: strin
 };
 
 export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [currentRole, setCurrentRole] = useState<UserRole>('admin');
+  const [currentRole, setCurrentRole] = useState<UserRole>('student');
   const [activeTab, setActiveTab] = useState<string>('home');
   const [selectedHallId, setSelectedHallId] = useState<string>('all');
 
@@ -157,7 +157,16 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
             if (data.rooms) setRooms(data.rooms);
             if (data.students) setStudents(data.students);
             if (data.applications) setApplications(data.applications);
-            if (data.alerts) setAlerts(data.alerts);
+            if (data.alerts && Array.isArray(data.alerts)) {
+              // Deduplicate alerts by ID to clean any corrupted storage keys
+              const seen = new Set<string>();
+              const deduplicatedAlerts = data.alerts.filter((a: any) => {
+                if (!a || !a.id || seen.has(a.id)) return false;
+                seen.add(a.id);
+                return true;
+              });
+              setAlerts(deduplicatedAlerts);
+            }
             if (data.payments) setPayments(data.payments);
           }
         });
@@ -194,10 +203,20 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         if (r) setRooms(r);
         if (s) setStudents(s);
         if (a) setApplications(a);
-        if (al) setAlerts(al);
+        if (al && Array.isArray(al)) {
+          const seen = new Set<string>();
+          setAlerts(al.filter((item: any) => {
+            if (!item || !item.id || seen.has(item.id)) return false;
+            seen.add(item.id);
+            return true;
+          }));
+        }
         if (p) setPayments(p);
       } else if (event.type === 'SYNC_NEW_ALERT' && event.payload) {
-        setAlerts(prev => [event.payload, ...prev]);
+        setAlerts(prev => {
+          if (prev.some(a => a.id === event.payload.id)) return prev;
+          return [event.payload, ...prev];
+        });
       }
     });
     return () => unsubscribe();
@@ -206,11 +225,14 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const addAlert = (newAlert: Omit<CheckInOutAlert, 'id' | 'timestamp' | 'read'>) => {
     const alert: CheckInOutAlert = {
       ...newAlert,
-      id: `alert-${Date.now()}-${Math.random().toString(36).substr(2, 4)}`,
+      id: `alert-${Date.now()}-${Math.random().toString(36).substring(2, 9)}`,
       timestamp: new Date().toISOString().replace('T', ' ').slice(0, 16),
       read: false
     };
-    setAlerts(prev => [alert, ...prev]);
+    setAlerts(prev => {
+      if (prev.some(a => a.id === alert.id)) return prev;
+      return [alert, ...prev];
+    });
     realtimeSync.broadcast('SYNC_NEW_ALERT', alert);
   };
 
@@ -614,7 +636,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       gender: appData.gender || 'female',
       phone: appData.phone || '',
       email: appData.email || '',
-      residentialAddress: appData.residentialAddress || 'Kitwe, Zambia',
+      residentialAddress: appData.residentialAddress || 'Copperbelt, Zambia',
       nextOfKinName: appData.nextOfKinName || '',
       nextOfKinPhone: appData.nextOfKinPhone || '',
       nextOfKinRelation: appData.nextOfKinRelation || 'Guardian',

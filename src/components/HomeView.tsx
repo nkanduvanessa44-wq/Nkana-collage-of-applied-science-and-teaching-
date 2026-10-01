@@ -41,48 +41,53 @@ export const HomeView: React.FC = () => {
   });
 
   return (
-    <div className="space-y-12 pb-16">
+    <div className="space-y-12 pb-24">
       {/* Hero Section: Clean, Background Photo FULLY VISIBLE, No Green Placards! */}
       <section className="relative rounded-3xl overflow-hidden shadow-xl border border-sky-100">
         <div className="relative min-h-[520px] lg:min-h-[600px] flex items-end">
           {/* Main Campus Background Photo - High-fidelity authentic campus photo */}
           <img
             src="/src/assets/images/nkana_actual_campus_1790778970206.jpg"
-            alt="Nkana College of Applied Sciences and Education Campus Grounds in Kitwe Zambia"
+            alt="Nkana College of Applied Sciences and Education Campus Grounds"
             referrerPolicy="no-referrer"
             className="absolute inset-0 w-full h-full object-cover object-center"
           />
 
-          {/* Gentle, subtle gradient at bottom only to keep text readable while picture remains 100% visible */}
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-900/40 to-transparent"></div>
+          {/* Uniform dark overlay behind the text for maximum contrast and legibility */}
+          <div className="absolute inset-0 bg-black/60"></div>
 
-          {/* Top Tag: Location & Accreditation Pill matching uploaded mobile screenshot */}
-          <div className="absolute top-6 left-6 right-6 z-20 flex flex-wrap justify-between items-center gap-3">
-            <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/95 text-sky-900 text-xs font-bold shadow-md backdrop-blur-md border border-white/80">
-              <span className="w-2.5 h-2.5 rounded-full bg-sky-500 animate-pulse"></span>
-              <span>Kitwe Teaching Hospital Grounds, Kuomboka Rd, Kitwe, Zambia</span>
-            </span>
-
-            <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-sky-600/90 text-white text-xs font-bold shadow-md backdrop-blur-md border border-sky-400/40">
-              <span>2026/2027 Academic Intake Open</span>
-            </span>
-          </div>
-
-          {/* Hero Content Overlay (Positioned cleanly at bottom) */}
-          <div className="relative z-10 w-full p-6 sm:p-10 lg:p-12 text-white space-y-5">
-            <div className="max-w-3xl space-y-2.5">
-              <span className="text-xs sm:text-sm font-bold uppercase tracking-widest text-sky-300">
-                Ministry of Health & NMCZ Accredited Higher Institution
+          {/* Hero Content Overlay (Positioned cleanly at bottom, leaving the campus building visible through the contrast scrim) */}
+          <div className="relative z-10 w-full p-5 sm:p-10 lg:p-12 text-white space-y-4">
+            {/* Campus Location & Accreditation Badge */}
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/20 text-white text-[11px] sm:text-xs font-bold shadow-xs backdrop-blur-md border border-white/30">
+                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                <span>Plot 7562, 27th St, Nkana East, Kitwe (near Mpelembe Sec)</span>
               </span>
-              <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight text-white drop-shadow-md">
-                Nkana College Of Applied Sciences And Education
+              <span className="inline-flex items-center px-3 py-1 rounded-full bg-white/20 text-white text-[11px] sm:text-xs font-bold backdrop-blur-md border border-white/30 shadow-xs">
+                Ministry of Health, NMCZ, HPCZ & TCZ Accredited
+              </span>
+            </div>
+
+            <div className="max-w-3xl space-y-2">
+              <h1 className="text-2xl sm:text-4xl lg:text-5xl font-black tracking-tight text-white drop-shadow-md">
+                <span>Nkana College Of Applied </span>
+                <span
+                  style={{
+                    color: '#FF8C00',
+                    textShadow: '0 2px 8px rgba(0, 0, 0, 0.9), 0 0 18px rgba(255, 140, 0, 0.45)'
+                  }}
+                  className="font-black drop-shadow-md"
+                >
+                  Sciences And Education
+                </span>
               </h1>
-              <p className="text-sm sm:text-base text-slate-100 font-medium max-w-2xl drop-shadow-sm leading-relaxed">
-                Premier training institution for Registered Nursing, Certified Midwifery, Clinical Medicine & Education. Experience state-of-the-art campus facilities and guaranteed residential accommodation.
+              <p className="text-xs sm:text-sm lg:text-base text-white font-medium max-w-2xl drop-shadow-sm leading-relaxed">
+                Premier training institution offering Diplomas in Registered Nursing, Midwifery, Clinical Medicine (Clinical Officer General), Environmental Health Technology, and Primary & Secondary Education.
               </p>
             </div>
 
-            {/* Vertically Stacked & Grid Action Buttons (Formatted precisely per user's mobile layout) */}
+            {/* Vertically Stacked & Grid Action Buttons */}
             <div className="pt-2 space-y-3">
               <div className="flex flex-wrap items-center gap-3">
                 <button
@@ -110,13 +115,16 @@ export const HomeView: React.FC = () => {
                   <span>Student Portal</span>
                 </button>
 
-                {/* Bed Space Management Quick Access */}
+                {/* Bed Space Management Quick Access (Requirement 2 Fix) */}
                 <button
                   onClick={() => setActiveTab('bed_spaces')}
-                  className="px-5 py-3.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs flex items-center gap-2 shadow-md transition-all"
+                  className="px-6 py-3.5 rounded-xl bg-[#FF8C00] hover:bg-[#e67e00] text-white font-extrabold text-sm flex items-center gap-2.5 shadow-lg shadow-orange-950/25 active:scale-95 transition-all"
                 >
-                  <Bed className="w-4 h-4 text-slate-950" />
-                  <span>Hostel Bed Spaces ({vacantBeds} Vacant)</span>
+                  <Bed className="w-5 h-5 text-white" />
+                  <span>Hostel Bed Spaces</span>
+                  <span className="bg-white text-[#FF8C00] text-xs px-2.5 py-0.5 rounded-full font-black shadow-xs">
+                    {vacantBeds > 0 ? `${vacantBeds} Vacant` : 'Check Availability'}
+                  </span>
                 </button>
               </div>
             </div>
@@ -132,7 +140,7 @@ export const HomeView: React.FC = () => {
               Campus Facilities & Infrastructure
             </span>
             <h2 className="text-2xl font-black text-slate-900 tracking-tight">
-              Life at Nkana College in Kitwe
+              Life at Nkana College
             </h2>
           </div>
           <p className="text-xs text-slate-500 max-w-md">
@@ -140,59 +148,102 @@ export const HomeView: React.FC = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {/* Card 1: Actual Campus Grounds & Admin Building */}
-          <div className="bg-white rounded-2xl overflow-hidden border border-sky-100 shadow-sm hover:shadow-md transition-all group">
-            <div className="h-48 overflow-hidden relative">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+          {/* Card 1: Actual College Entrance Gate (with blur background & descriptive alt text) */}
+          <div className="bg-white rounded-2xl overflow-hidden border border-slate-200/80 shadow-xs hover:shadow-md transition-all group">
+            <div className="h-[220px] overflow-hidden relative rounded-xl bg-slate-900">
               <img
-                src="/src/assets/images/nkana_actual_campus_1790778970206.jpg"
-                alt="Nkana College of Applied Sciences and Education Main Campus Grounds"
+                src="/src/assets/images/nkana_college_gate_1790746735611.jpg"
+                alt="Nkana College Official Entrance Gate at Plot 7562, 27th Street Nkana East Kitwe"
                 referrerPolicy="no-referrer"
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                className="w-full h-[220px] object-cover rounded-xl group-hover:scale-105 transition-transform duration-300"
               />
-              <span className="absolute bottom-2 left-2 px-2.5 py-0.5 rounded-full bg-white/95 text-sky-900 text-[10px] font-bold shadow-xs">
-                Main Campus Grounds
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent rounded-xl pointer-events-none"></div>
+              <span className="absolute bottom-2.5 left-2.5 px-2.5 py-0.5 rounded-full bg-white/95 text-sky-900 text-[10px] font-bold shadow-xs backdrop-blur-xs">
+                Campus Security Entrance
               </span>
             </div>
             <div className="p-4">
-              <h3 className="text-sm font-bold text-slate-900">Academic & Administrative Complex</h3>
+              <h3 className="text-sm font-bold text-slate-900">Official Campus Gate</h3>
               <p className="text-xs text-slate-500 mt-1">
-                Located on Kuomboka Road, Kitwe with modern faculty offices, registry, and landscaped grounds.
+                Secured 24/7 access control point with gated perimeter and visitor registration desk.
               </p>
             </div>
           </div>
 
           {/* Card 2: Actual Nursing & Clinical Students */}
-          <div className="bg-white rounded-2xl overflow-hidden border border-sky-100 shadow-sm hover:shadow-md transition-all group">
-            <div className="h-48 overflow-hidden relative">
+          <div className="bg-white rounded-2xl overflow-hidden border border-slate-200/80 shadow-xs hover:shadow-md transition-all group">
+            <div className="h-[220px] overflow-hidden relative rounded-xl bg-slate-900">
               <img
                 src="/src/assets/images/nkana_clinical_students_1790778996968.jpg"
-                alt="Nursing and Healthcare students at Nkana College"
+                alt="Registered Nursing and Healthcare trainee cohort practicing clinical protocols at Nkana College"
                 referrerPolicy="no-referrer"
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                className="w-full h-[220px] object-cover rounded-xl group-hover:scale-105 transition-transform duration-300"
               />
-              <span className="absolute bottom-2 left-2 px-2.5 py-0.5 rounded-full bg-white/95 text-sky-900 text-[10px] font-bold shadow-xs">
-                Nursing & Midwifery Cohort
+              <span className="absolute bottom-2.5 left-2.5 px-2.5 py-0.5 rounded-full bg-white/95 text-sky-900 text-[10px] font-bold shadow-xs">
+                Nursing & Healthcare Cohort
               </span>
             </div>
             <div className="p-4">
               <h3 className="text-sm font-bold text-slate-900">Clinical Healthcare Training</h3>
               <p className="text-xs text-slate-500 mt-1">
-                Direct bedside training and laboratory rotations affiliated with Kitwe Teaching Hospital.
+                Direct bedside training and laboratory rotations affiliated with certified teaching medical facilities.
               </p>
             </div>
           </div>
 
-          {/* Card 3: Actual Student Hostel Dormitories */}
-          <div className="bg-white rounded-2xl overflow-hidden border border-sky-100 shadow-sm hover:shadow-md transition-all group">
-            <div className="h-48 overflow-hidden relative">
+          {/* Card 3: Actual Medical Students Group */}
+          <div className="bg-white rounded-2xl overflow-hidden border border-slate-200/80 shadow-xs hover:shadow-md transition-all group">
+            <div className="h-[220px] overflow-hidden relative rounded-xl bg-slate-900">
+              <img
+                src="/src/assets/images/nkana_medical_students_1790746758786.jpg"
+                alt="Clinical Officer General medical scholars during campus lectures at Nkana College"
+                referrerPolicy="no-referrer"
+                className="w-full h-[220px] object-cover rounded-xl group-hover:scale-105 transition-transform duration-300"
+              />
+              <span className="absolute bottom-2.5 left-2.5 px-2.5 py-0.5 rounded-full bg-white/95 text-sky-900 text-[10px] font-bold shadow-xs">
+                Medical & Clinical Scholars
+              </span>
+            </div>
+            <div className="p-4">
+              <h3 className="text-sm font-bold text-slate-900">Clinical Officer General</h3>
+              <p className="text-xs text-slate-500 mt-1">
+                Hands-on practical medical instruction in diagnosis, patient care, and emergency triage.
+              </p>
+            </div>
+          </div>
+
+          {/* Card 4: Actual Library & Research Study Hall */}
+          <div className="bg-white rounded-2xl overflow-hidden border border-slate-200/80 shadow-xs hover:shadow-md transition-all group">
+            <div className="h-[220px] overflow-hidden relative rounded-xl bg-slate-900">
+              <img
+                src="/src/assets/images/nkana_students_library_1790746747471.jpg"
+                alt="Nkana College Academic Library and research reading hall with students"
+                referrerPolicy="no-referrer"
+                className="w-full h-[220px] object-cover rounded-xl group-hover:scale-105 transition-transform duration-300"
+              />
+              <span className="absolute bottom-2.5 left-2.5 px-2.5 py-0.5 rounded-full bg-white/95 text-sky-900 text-[10px] font-bold shadow-xs">
+                Academic Library
+              </span>
+            </div>
+            <div className="p-4">
+              <h3 className="text-sm font-bold text-slate-900">Research & Study Center</h3>
+              <p className="text-xs text-slate-500 mt-1">
+                Extensive catalog of medical textbooks, quiet study cubicles, and Wi-Fi research tables.
+              </p>
+            </div>
+          </div>
+
+          {/* Card 5: Actual Student Hostel Dormitories */}
+          <div className="bg-white rounded-2xl overflow-hidden border border-slate-200/80 shadow-xs hover:shadow-md transition-all group">
+            <div className="h-[220px] overflow-hidden relative rounded-xl bg-slate-900">
               <img
                 src="/src/assets/images/nkana_hostel_grounds_1790779008294.jpg"
-                alt="Student residential hostel at Nkana College"
+                alt="Nkana College On-Campus Student Residential Halls and Hostel Courtyard"
                 referrerPolicy="no-referrer"
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                className="w-full h-[220px] object-cover rounded-xl group-hover:scale-105 transition-transform duration-300"
               />
-              <span className="absolute bottom-2 left-2 px-2.5 py-0.5 rounded-full bg-white/95 text-sky-900 text-[10px] font-bold shadow-xs">
+              <span className="absolute bottom-2.5 left-2.5 px-2.5 py-0.5 rounded-full bg-white/95 text-sky-900 text-[10px] font-bold shadow-xs">
                 On-Campus Hostels
               </span>
             </div>
@@ -204,16 +255,37 @@ export const HomeView: React.FC = () => {
             </div>
           </div>
 
-          {/* Card 4: Actual Lecture Hall & Computer Library */}
-          <div className="bg-white rounded-2xl overflow-hidden border border-sky-100 shadow-sm hover:shadow-md transition-all group">
-            <div className="h-48 overflow-hidden relative">
+          {/* Card 6: Actual Dormitory Complex */}
+          <div className="bg-white rounded-2xl overflow-hidden border border-slate-200/80 shadow-xs hover:shadow-md transition-all group">
+            <div className="h-[220px] overflow-hidden relative rounded-xl bg-slate-900">
+              <img
+                src="/src/assets/images/nkana_dormitory_hostel_1790746770090.jpg"
+                alt="Nkana College Spacious Residential Dormitory Block and living quarters"
+                referrerPolicy="no-referrer"
+                className="w-full h-[220px] object-cover rounded-xl group-hover:scale-105 transition-transform duration-300"
+              />
+              <span className="absolute bottom-2.5 left-2.5 px-2.5 py-0.5 rounded-full bg-white/95 text-sky-900 text-[10px] font-bold shadow-xs">
+                Residential Dormitories
+              </span>
+            </div>
+            <div className="p-4">
+              <h3 className="text-sm font-bold text-slate-900">Spacious Resident Wings</h3>
+              <p className="text-xs text-slate-500 mt-1">
+                Well-ventilated single, double, and quad rooms equipped with individual study desks and wardrobes.
+              </p>
+            </div>
+          </div>
+
+          {/* Card 7: Actual Lecture Hall & Computer Library */}
+          <div className="bg-white rounded-2xl overflow-hidden border border-slate-200/80 shadow-xs hover:shadow-md transition-all group">
+            <div className="h-[220px] overflow-hidden relative rounded-xl bg-slate-900">
               <img
                 src="/src/assets/images/nkana_lecture_hall_1790779019428.jpg"
-                alt="Lecture hall and e-library at Nkana College"
+                alt="Nkana College Modern Lecture Theaters and audio-visual instructional room"
                 referrerPolicy="no-referrer"
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                className="w-full h-[220px] object-cover rounded-xl group-hover:scale-105 transition-transform duration-300"
               />
-              <span className="absolute bottom-2 left-2 px-2.5 py-0.5 rounded-full bg-white/95 text-sky-900 text-[10px] font-bold shadow-xs">
+              <span className="absolute bottom-2.5 left-2.5 px-2.5 py-0.5 rounded-full bg-white/95 text-sky-900 text-[10px] font-bold shadow-xs">
                 Lecture Hall & E-Library
               </span>
             </div>
@@ -298,8 +370,8 @@ export const HomeView: React.FC = () => {
             </div>
 
             <div>
-              <span className="text-[10px] font-bold text-sky-700 uppercase tracking-wider bg-sky-50 px-2.5 py-0.5 rounded-full border border-sky-200">
-                New Enrollment Portal
+              <span className="text-[10px] font-bold uppercase tracking-wider bg-[#E6F0FF] text-[#0F6FBF] border border-[#BFDBFE] px-2.5 py-0.5 rounded-full shadow-2xs">
+                New Student Admissions 2026/2027
               </span>
               <h3 className="text-xl font-black text-slate-900 mt-1">
                 Online Student Admissions Portal
@@ -360,7 +432,7 @@ export const HomeView: React.FC = () => {
               Direct Entry Diplomas
             </span>
             <h2 className="text-xl font-extrabold text-slate-900">
-              Faculties at Nkana College Of Applied Sciences And Education
+              Faculties at <span className="text-sky-700">Nkana College Of Applied </span><span className="text-orange-600">Sciences And Education</span>
             </h2>
           </div>
           <button
@@ -519,13 +591,13 @@ export const HomeView: React.FC = () => {
         <div className="p-5 rounded-2xl bg-white border border-sky-100 shadow-xs space-y-2">
           <div className="flex items-center gap-2 text-sky-700 font-bold text-xs uppercase">
             <Calendar className="w-4 h-4" />
-            <span>Admissions Bulletin 2027</span>
+            <span>Admissions & Intakes</span>
           </div>
           <h4 className="text-sm font-bold text-slate-900">
-            January 2027 Intake & Mid-Year Applications Now Open
+            Main January & July/August Mid-Year Intakes
           </h4>
           <p className="text-xs text-slate-600 leading-relaxed">
-            Prospective applicants for Registered Nursing, Midwifery, and Clinical Medicine can now complete enrollment online with instant ECZ result validation.
+            Main intakes in January across all programs. Mid-year intakes (July/August) available for Nursing and Clinical Medicine. Requires 5 "O" level credits (English, Math, Science/Biology).
           </p>
           <button
             onClick={() => setActiveTab('online_admission')}

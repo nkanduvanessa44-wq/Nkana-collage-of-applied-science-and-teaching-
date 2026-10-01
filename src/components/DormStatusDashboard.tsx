@@ -270,6 +270,36 @@ export const DormStatusDashboard: React.FC = () => {
           })}
         </div>
 
+        {/* Authentic Hostel Facility Showcase Banner */}
+        {selectedHallId !== 'all' && (() => {
+          const currentHall = halls.find(h => h.id === selectedHallId);
+          if (!currentHall) return null;
+          return (
+            <div className="bg-slate-50/80 rounded-2xl border border-sky-100 p-3 sm:p-4 flex flex-col sm:flex-row items-center gap-4 animate-in fade-in">
+              <div className="w-full sm:w-44 h-28 rounded-xl overflow-hidden shrink-0 border border-slate-200 shadow-2xs">
+                <img
+                  src={currentHall.image}
+                  alt={currentHall.name}
+                  referrerPolicy="no-referrer"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div className="space-y-1 flex-1 text-center sm:text-left">
+                <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-sky-700 bg-sky-100 px-2 py-0.5 rounded-md border border-sky-200">
+                    {currentHall.code}
+                  </span>
+                  <span className="text-xs text-slate-500 font-semibold">
+                    {currentHall.genderAllowed === 'female' ? 'Female Residence' : currentHall.genderAllowed === 'male' ? 'Male Residence' : 'Co-ed Block'} • {currentHall.floorsCount} Floors
+                  </span>
+                </div>
+                <h3 className="text-sm sm:text-base font-black text-slate-900">{currentHall.name}</h3>
+                <p className="text-xs text-slate-600 max-w-xl leading-relaxed">{currentHall.description}</p>
+              </div>
+            </div>
+          );
+        })()}
+
         {/* Secondary filters: Status, Floor, Search */}
         <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-12 gap-3 pt-2 border-t border-slate-100">
           {/* Search box */}

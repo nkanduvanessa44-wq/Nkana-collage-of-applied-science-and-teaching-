@@ -2,21 +2,18 @@ import React, { useState } from 'react';
 import { useApp } from '../context/AppContext';
 import {
   AlertTriangle,
-  Bell,
   Clock,
   CheckCircle2,
   X,
   CreditCard,
   Smartphone,
   ShieldAlert,
-  Send,
   FileDown,
   Building2,
   Bed,
   User,
   ChevronDown,
   ChevronUp,
-  Sparkles,
   ArrowRight,
   Info
 } from 'lucide-react';
@@ -29,13 +26,7 @@ export const BedPaymentExpiryAlertUI: React.FC = () => {
     dismissExpiryPopup,
     acknowledgeExpiryAlert,
     renewBedPayment,
-    triggerExpiryAlert,
-    sendBatchExpiryReminders,
-    expiryAlerts,
-    expiryReminderLogs,
-    students,
-    rooms,
-    halls
+    students
   } = useApp();
 
   const [paymentMethod, setPaymentMethod] = useState<'mtn_momo' | 'airtel_money' | 'zamtel_kwacha' | 'visa_mastercard'>('mtn_momo');
@@ -43,12 +34,6 @@ export const BedPaymentExpiryAlertUI: React.FC = () => {
   const [isProcessing, setIsProcessing] = useState(false);
   const [paymentSuccessData, setPaymentSuccessData] = useState<{ transaction: PaymentTransaction; nextExpiry: string } | null>(null);
   const [showSmsPreview, setShowSmsPreview] = useState(false);
-  const [floatingPanelOpen, setFloatingPanelOpen] = useState(false);
-
-  // Custom trigger state in floating panel
-  const [selectedSimStudentId, setSelectedSimStudentId] = useState(students[0]?.id || 'std-1');
-  const [simDays, setSimDays] = useState(3);
-  const [bulkSentCount, setBulkSentCount] = useState<number | null>(null);
 
   // When activeExpiryPopup opens, sync phone number
   React.useEffect(() => {
@@ -89,14 +74,6 @@ export const BedPaymentExpiryAlertUI: React.FC = () => {
       generateBedPaymentReceiptPDF(paymentSuccessData.transaction, student, paymentSuccessData.nextExpiry);
     }
   };
-
-  const handleBroadcastReminders = () => {
-    const count = sendBatchExpiryReminders();
-    setBulkSentCount(count);
-    setTimeout(() => setBulkSentCount(null), 4000);
-  };
-
-  const criticalOrExpiredCount = expiryAlerts.filter(a => a.daysRemaining <= 3).length;
 
   return (
     <>
@@ -421,166 +398,6 @@ export const BedPaymentExpiryAlertUI: React.FC = () => {
           </div>
         </div>
       )}
-
-      {/* ========================================================================= */}
-      {/* 2. PERSISTENT FLOATING TRIGGER & SIMULATOR WIDGET (Bottom Right)          */}
-      {/* Allows the reviewer to test mock notifications at any time from any view  */}
-      {/* ========================================================================= */}
-      <div className="fixed bottom-5 right-5 z-40 flex flex-col items-end">
-        {/* Floating Panel Popup */}
-        {floatingPanelOpen && (
-          <div className="mb-3 w-80 sm:w-96 bg-white rounded-2xl shadow-2xl border border-sky-200 p-4 animate-in slide-in-from-bottom-3 duration-200 text-xs space-y-3">
-            <div className="flex items-center justify-between border-b border-slate-100 pb-2.5">
-              <div className="flex items-center gap-2">
-                <div className="w-7 h-7 rounded-lg bg-sky-700 text-white flex items-center justify-center font-bold">
-                  <Bell className="w-4 h-4" />
-                </div>
-                <div>
-                  <h4 className="font-extrabold text-slate-900 text-xs">
-                    Mock Bed Expiry Alert Simulator
-                  </h4>
-                  <p className="text-[10px] text-slate-500">
-                    Trigger alert UIs & simulated mobile notices
-                  </p>
-                </div>
-              </div>
-              <button
-                onClick={() => setFloatingPanelOpen(false)}
-                className="text-slate-400 hover:text-slate-600 p-1"
-              >
-                <X className="w-4 h-4" />
-              </button>
-            </div>
-
-            {/* Quick Preset Buttons */}
-            <div>
-              <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block mb-1.5">
-                Quick Test Scenarios:
-              </span>
-              <div className="grid grid-cols-1 gap-1.5">
-                <button
-                  type="button"
-                  onClick={() => triggerExpiryAlert('std-1', 3)}
-                  className="w-full text-left p-2 rounded-xl border border-amber-200 bg-amber-50 hover:bg-amber-100 text-amber-900 font-medium transition-colors flex items-center justify-between"
-                >
-                  <div>
-                    <strong className="block text-xs">⚠️ Vanessa Mwape</strong>
-                    <span className="text-[10px] text-amber-700">Expires in 3 Days (Critical Notice)</span>
-                  </div>
-                  <span className="px-2 py-0.5 rounded bg-amber-200 font-bold text-[10px]">Test 3d</span>
-                </button>
-
-                <button
-                  type="button"
-                  onClick={() => triggerExpiryAlert('std-11', 0)}
-                  className="w-full text-left p-2 rounded-xl border border-rose-200 bg-rose-50 hover:bg-rose-100 text-rose-900 font-medium transition-colors flex items-center justify-between"
-                >
-                  <div>
-                    <strong className="block text-xs">🚨 Emmanuel Bwalya</strong>
-                    <span className="text-[10px] text-rose-700">Expires Today (Final Warning)</span>
-                  </div>
-                  <span className="px-2 py-0.5 rounded bg-rose-200 font-bold text-[10px]">Test 0d</span>
-                </button>
-
-                <button
-                  type="button"
-                  onClick={() => triggerExpiryAlert('std-12', -2)}
-                  className="w-full text-left p-2 rounded-xl border border-red-200 bg-red-50 hover:bg-red-100 text-red-900 font-medium transition-colors flex items-center justify-between"
-                >
-                  <div>
-                    <strong className="block text-xs">⛔ Kelvin Chanda</strong>
-                    <span className="text-[10px] text-red-700">Expired 2 Days Ago (Overdue)</span>
-                  </div>
-                  <span className="px-2 py-0.5 rounded bg-red-200 font-bold text-[10px]">Overdue</span>
-                </button>
-              </div>
-            </div>
-
-            {/* Custom Student Selector */}
-            <div className="border-t border-slate-100 pt-2.5 space-y-2">
-              <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">
-                Custom Alert Trigger:
-              </span>
-              <div className="flex gap-2">
-                <select
-                  value={selectedSimStudentId}
-                  onChange={(e) => setSelectedSimStudentId(e.target.value)}
-                  className="flex-1 text-xs p-2 rounded-xl border border-slate-200 bg-white"
-                >
-                  {students.map(s => (
-                    <option key={s.id} value={s.id}>
-                      {s.fullName} ({s.studentNumber})
-                    </option>
-                  ))}
-                </select>
-
-                <select
-                  value={simDays}
-                  onChange={(e) => setSimDays(Number(e.target.value))}
-                  className="w-24 text-xs p-2 rounded-xl border border-slate-200 bg-white font-bold"
-                >
-                  <option value={1}>1 Day Left</option>
-                  <option value={3}>3 Days</option>
-                  <option value={5}>5 Days</option>
-                  <option value={7}>7 Days</option>
-                  <option value={0}>Today (0d)</option>
-                  <option value={-1}>Overdue</option>
-                </select>
-              </div>
-
-              <button
-                type="button"
-                onClick={() => triggerExpiryAlert(selectedSimStudentId, simDays)}
-                className="w-full py-2 bg-sky-700 hover:bg-sky-800 text-white rounded-xl text-xs font-bold shadow-xs transition-colors flex items-center justify-center gap-1.5"
-              >
-                <Sparkles className="w-3.5 h-3.5" />
-                <span>Trigger Alert UI For Student</span>
-              </button>
-            </div>
-
-            {/* Batch Broadcast SMS */}
-            <div className="border-t border-slate-100 pt-2 flex items-center justify-between">
-              <button
-                type="button"
-                onClick={handleBroadcastReminders}
-                className="text-xs text-sky-800 font-bold hover:underline flex items-center gap-1"
-              >
-                <Send className="w-3.5 h-3.5" />
-                <span>Send Bulk Expiry SMS Reminders</span>
-              </button>
-
-              {bulkSentCount !== null && (
-                <span className="text-[10px] bg-emerald-100 text-emerald-800 font-bold px-2 py-0.5 rounded">
-                  ✓ {bulkSentCount} SMS Dispatched
-                </span>
-              )}
-            </div>
-          </div>
-        )}
-
-        {/* Floating Pill Toggle Button */}
-        <button
-          onClick={() => setFloatingPanelOpen(!floatingPanelOpen)}
-          className={`flex items-center gap-2.5 px-4 py-2.5 rounded-full shadow-lg transition-all border ${
-            criticalOrExpiredCount > 0
-              ? 'bg-amber-600 hover:bg-amber-700 text-white border-amber-400 animate-pulse'
-              : 'bg-sky-900 hover:bg-sky-950 text-white border-sky-700'
-          }`}
-        >
-          <div className="relative">
-            <Bell className="w-4 h-4" />
-            {expiryAlerts.length > 0 && (
-              <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-red-500 rounded-full"></span>
-            )}
-          </div>
-          <span className="text-xs font-extrabold tracking-tight">
-            Bed Expiry Monitor ({expiryAlerts.length} Expiring)
-          </span>
-          <span className="text-[10px] bg-white/20 px-1.5 py-0.5 rounded-full font-mono">
-            Mock Trigger
-          </span>
-        </button>
-      </div>
     </>
   );
 };

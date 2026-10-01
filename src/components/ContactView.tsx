@@ -6,7 +6,9 @@ import {
   Clock,
   Send,
   Building2,
-  CheckCircle2
+  CheckCircle2,
+  MessageCircle,
+  Compass
 } from 'lucide-react';
 
 export const ContactView: React.FC = () => {
@@ -31,7 +33,7 @@ export const ContactView: React.FC = () => {
   return (
     <div className="max-w-5xl mx-auto space-y-8 pb-12">
       {/* Top Banner */}
-      <div className="bg-white rounded-3xl p-6 sm:p-8 border border-sky-100 shadow-sm">
+      <div className="bg-white/90 backdrop-blur-md rounded-3xl p-6 sm:p-8 border border-slate-200/80 shadow-xs">
         <span className="text-xs font-bold uppercase tracking-wider text-sky-700 bg-sky-50 px-3 py-1 rounded-full border border-sky-200">
           Get in Touch
         </span>
@@ -39,34 +41,76 @@ export const ContactView: React.FC = () => {
           Contact & Visit Nkana College
         </h1>
         <p className="text-xs sm:text-sm text-slate-600 mt-1 max-w-xl">
-          We welcome prospective nursing, clinical, and education students, parents, and visiting academics to our Kitwe campus.
+          We welcome prospective nursing, clinical medicine, environmental health, and education students, parents, and visiting academics to our Nkana East campus.
         </p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Contact Information & Office Hours */}
         <div className="space-y-4">
-          <div className="bg-white p-6 rounded-2xl border border-sky-100 shadow-sm space-y-4">
+          <div className="bg-white/90 backdrop-blur-md p-6 rounded-2xl border border-slate-200/80 shadow-xs space-y-4">
             <h3 className="text-base font-bold text-slate-900">Campus Contact Directory</h3>
 
-            <div className="space-y-3 text-xs text-slate-700">
+            <div className="space-y-3.5 text-xs text-slate-700">
               <div className="flex items-start gap-3">
                 <div className="w-8 h-8 rounded-lg bg-sky-50 text-sky-700 flex items-center justify-center shrink-0">
                   <MapPin className="w-4 h-4" />
                 </div>
                 <div>
-                  <span className="font-bold block">Campus Physical Location:</span>
-                  <span>Plot 1208, Nkana Campus, Kitwe, Copperbelt Province, Republic of Zambia</span>
+                  <span className="font-bold text-slate-900 block">Campus Physical Location:</span>
+                  <span className="text-slate-700 leading-relaxed font-medium">
+                    Plot No. 7562, 27th Street, Nkana East, Kitwe, Zambia
+                  </span>
+                  <span className="text-[11px] text-sky-700 block mt-0.5 font-semibold">
+                    (Near Mpelembe Secondary School)
+                  </span>
                 </div>
               </div>
 
               <div className="flex items-start gap-3">
-                <div className="w-8 h-8 rounded-lg bg-sky-50 text-sky-700 flex items-center justify-center shrink-0">
+                <div className="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-700 flex items-center justify-center shrink-0">
                   <Phone className="w-4 h-4" />
                 </div>
-                <div>
-                  <span className="font-bold block">Admissions & Registrar:</span>
-                  <span>+260 977 441 298 / +260 966 820 114</span>
+                <div className="flex-1">
+                  <span className="font-bold text-slate-900 block mb-1">Phone & WhatsApp Lines:</span>
+                  <div className="space-y-1.5 font-mono text-xs">
+                    <div className="flex items-center justify-between p-2 rounded-xl bg-slate-50 border border-slate-200/70">
+                      <span><strong>+260 963 072421</strong></span>
+                      <a
+                        href="https://wa.me/260963072421"
+                        target="_blank"
+                        rel="noreferrer"
+                        className="inline-flex items-center gap-1 text-[11px] font-sans font-bold text-emerald-700 hover:text-emerald-800"
+                      >
+                        <MessageCircle className="w-3.5 h-3.5" />
+                        <span>Chat WhatsApp</span>
+                      </a>
+                    </div>
+                    <div className="flex items-center justify-between p-2 rounded-xl bg-slate-50 border border-slate-200/70">
+                      <span><strong>+260 973 350816</strong></span>
+                      <a
+                        href="https://wa.me/260973350816"
+                        target="_blank"
+                        rel="noreferrer"
+                        className="inline-flex items-center gap-1 text-[11px] font-sans font-bold text-emerald-700 hover:text-emerald-800"
+                      >
+                        <MessageCircle className="w-3.5 h-3.5" />
+                        <span>Chat WhatsApp</span>
+                      </a>
+                    </div>
+                    <div className="flex items-center justify-between p-2 rounded-xl bg-slate-50 border border-slate-200/70">
+                      <span><strong>+260 768 364480</strong></span>
+                      <a
+                        href="https://wa.me/260768364480"
+                        target="_blank"
+                        rel="noreferrer"
+                        className="inline-flex items-center gap-1 text-[11px] font-sans font-bold text-emerald-700 hover:text-emerald-800"
+                      >
+                        <MessageCircle className="w-3.5 h-3.5" />
+                        <span>Chat WhatsApp</span>
+                      </a>
+                    </div>
+                  </div>
                 </div>
               </div>
 
@@ -75,8 +119,8 @@ export const ContactView: React.FC = () => {
                   <Mail className="w-4 h-4" />
                 </div>
                 <div>
-                  <span className="font-bold block">Official Inquiries:</span>
-                  <span>admissions@nkanacollege.edu.zm / info@nkanacollege.edu.zm</span>
+                  <span className="font-bold text-slate-900 block">Official Inquiries:</span>
+                  <span className="text-slate-700">admissions@nkanacollege.edu.zm / info@nkanacollege.edu.zm</span>
                 </div>
               </div>
 
@@ -85,20 +129,36 @@ export const ContactView: React.FC = () => {
                   <Clock className="w-4 h-4" />
                 </div>
                 <div>
-                  <span className="font-bold block">Administration Office Hours:</span>
-                  <span>Monday - Friday: 08:00 - 17:00 CAT | Saturday: 08:30 - 13:00 CAT</span>
+                  <span className="font-bold text-slate-900 block">Administration Office Hours:</span>
+                  <span className="text-slate-700">Monday - Friday: 08:00 - 17:00 CAT | Saturday: 08:30 - 13:00 CAT</span>
                 </div>
               </div>
             </div>
           </div>
 
-          <div className="rounded-2xl overflow-hidden border border-slate-200 shadow-sm h-56">
-            <img
-              src="/src/assets/images/nkana_campus_main_1790746724657.jpg"
-              alt="Nkana College administration entrance"
-              referrerPolicy="no-referrer"
-              className="w-full h-full object-cover"
-            />
+          <div className="grid grid-cols-2 gap-3">
+            <div className="rounded-2xl overflow-hidden border border-slate-200 shadow-xs h-44 relative group">
+              <img
+                src="/src/assets/images/nkana_college_gate_1790746735611.jpg"
+                alt="Nkana College Entrance Gate"
+                referrerPolicy="no-referrer"
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-transparent flex items-end p-2.5">
+                <span className="text-white text-[11px] font-bold">Main Security Gate</span>
+              </div>
+            </div>
+            <div className="rounded-2xl overflow-hidden border border-slate-200 shadow-xs h-44 relative group">
+              <img
+                src="/src/assets/images/nkana_campus_main_1790746724657.jpg"
+                alt="Nkana College administration entrance"
+                referrerPolicy="no-referrer"
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-transparent flex items-end p-2.5">
+                <span className="text-white text-[11px] font-bold">Campus Walkway</span>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -113,7 +173,7 @@ export const ContactView: React.FC = () => {
             <div className="p-6 bg-sky-50 border border-sky-200 text-sky-900 rounded-xl text-center space-y-2">
               <CheckCircle2 className="w-8 h-8 text-sky-600 mx-auto" />
               <h4 className="text-sm font-bold">Message Dispatched Successfully!</h4>
-              <p className="text-xs text-slate-600">Our Kitwe admissions desk will contact you via phone or email within 24 business hours.</p>
+              <p className="text-xs text-slate-600">Our admissions desk will contact you via phone or email within 24 business hours.</p>
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-3 text-xs">

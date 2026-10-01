@@ -41,8 +41,8 @@ export const OnlineAdmissionPortal: React.FC = () => {
   const [nextOfKinRelation, setNextOfKinRelation] = useState('Parent');
 
   // Step 2: Academic Program & School Results
-  const [programChoice, setProgramChoice] = useState('Registered Nursing Diploma');
-  const [intakeSession, setIntakeSession] = useState<'January 2027 Full-Time' | 'July 2026 Mid-Year' | 'Distance Learning'>('January 2027 Full-Time');
+  const [programChoice, setProgramChoice] = useState('Diploma in Registered Nursing');
+  const [intakeSession, setIntakeSession] = useState<'January Main Intake (Full-Time)' | 'July/August Mid-Year Intake' | 'Distance / In-Service Intake' | string>('January Main Intake (Full-Time)');
   const [previousSchool, setPreviousSchool] = useState('');
   const [completionYear, setCompletionYear] = useState('2024');
 
@@ -153,7 +153,7 @@ export const OnlineAdmissionPortal: React.FC = () => {
         gender,
         phone,
         email: email || `${fullName.toLowerCase().replace(/\s+/g, '.')}@email.com`,
-        residentialAddress: address || 'Kitwe, Zambia',
+        residentialAddress: address || 'Copperbelt, Zambia',
         nextOfKinName: nextOfKinName || 'Parent',
         nextOfKinPhone: nextOfKinPhone || phone,
         nextOfKinRelation,
@@ -190,7 +190,7 @@ export const OnlineAdmissionPortal: React.FC = () => {
       <div className="bg-white rounded-2xl border border-sky-100 p-6 shadow-sm">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
           <div>
-            <span className="text-xs font-bold uppercase tracking-wider text-sky-700 bg-sky-50 px-2.5 py-0.5 rounded-full border border-sky-200">
+            <span className="text-xs font-bold uppercase tracking-wider bg-[#E6F0FF] text-[#0F6FBF] border border-[#BFDBFE] px-3 py-1 rounded-full shadow-xs">
               New Student Admissions 2026/2027
             </span>
             <h1 className="text-2xl sm:text-3xl font-black text-slate-900 mt-1">
@@ -412,7 +412,7 @@ export const OnlineAdmissionPortal: React.FC = () => {
                   <input
                     type="text"
                     required
-                    placeholder="e.g. Plot 482, Riverside, Kitwe, Zambia"
+                    placeholder="e.g. Plot 482, Riverside, Copperbelt, Zambia"
                     value={address}
                     onChange={(e) => setAddress(e.target.value)}
                     className="w-full text-xs p-2.5 rounded-lg border border-slate-200 focus:ring-2 focus:ring-sky-500 focus:outline-hidden"
@@ -476,12 +476,12 @@ export const OnlineAdmissionPortal: React.FC = () => {
                     onChange={(e) => setProgramChoice(e.target.value)}
                     className="w-full text-xs p-2.5 rounded-lg border border-slate-200 focus:ring-2 focus:ring-sky-500 font-semibold text-slate-900"
                   >
-                    <option value="Registered Nursing Diploma">Registered Nursing Diploma (RN - 3 Years)</option>
-                    <option value="Certified Midwifery Diploma">Certified Midwifery Diploma (2 Years)</option>
-                    <option value="Clinical Medicine Diploma">Clinical Medicine Diploma (Clinician - 3 Years)</option>
-                    <option value="Biomedical Laboratory Sciences">Biomedical Laboratory Sciences (3 Years)</option>
-                    <option value="Primary Teachers Diploma">Primary Teachers Diploma (Education - 3 Years)</option>
-                    <option value="Higher Diploma in Health Education">Higher Diploma in Health Education (2 Years)</option>
+                    <option value="Diploma in Registered Nursing">Diploma in Registered Nursing (3 Years)</option>
+                    <option value="Diploma in Midwifery">Diploma in Midwifery (3 Years)</option>
+                    <option value="Diploma in Clinical Medicine / Clinical Officer General">Diploma in Clinical Medicine / Clinical Officer General (3 Years)</option>
+                    <option value="Environmental Health Technology">Environmental Health Technology (3 Years)</option>
+                    <option value="Primary Teachers’ Diploma">Primary Teachers’ Diploma (3 Years)</option>
+                    <option value="Secondary Teachers’ Diploma">Secondary Teachers’ Diploma (3 Years)</option>
                   </select>
                 </div>
 
@@ -492,9 +492,9 @@ export const OnlineAdmissionPortal: React.FC = () => {
                     onChange={(e) => setIntakeSession(e.target.value as any)}
                     className="w-full text-xs p-2.5 rounded-lg border border-slate-200 focus:ring-2 focus:ring-sky-500 font-semibold text-slate-900"
                   >
-                    <option value="January 2027 Full-Time">January 2027 Intake (Full-Time)</option>
-                    <option value="July 2026 Mid-Year">July 2026 Intake (Mid-Year)</option>
-                    <option value="Distance Learning">Distance Learning / In-Service</option>
+                    <option value="January Main Intake (Full-Time)">January Main Intake (Full-Time)</option>
+                    <option value="July/August Mid-Year Intake">July/August Mid-Year Intake (Nursing & Clinical Medicine)</option>
+                    <option value="Distance / In-Service Intake">Distance / In-Service Intake</option>
                   </select>
                 </div>
 
@@ -503,7 +503,7 @@ export const OnlineAdmissionPortal: React.FC = () => {
                   <input
                     type="text"
                     required
-                    placeholder="e.g. Kitwe Boys Secondary School"
+                    placeholder="e.g. Nkana Secondary School"
                     value={previousSchool}
                     onChange={(e) => setPreviousSchool(e.target.value)}
                     className="w-full text-xs p-2.5 rounded-lg border border-slate-200 focus:ring-2 focus:ring-sky-500"

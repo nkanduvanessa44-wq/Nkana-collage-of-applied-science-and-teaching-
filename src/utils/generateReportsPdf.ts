@@ -36,7 +36,7 @@ export function generateDailyOccupancyReportPDF(
   doc.setFontSize(10);
   doc.text('DIRECTORATE OF STUDENT AFFAIRS & HOSTEL ACCOMMODATION', 105, 18, { align: 'center' });
   doc.setFontSize(8);
-  doc.text('Kitwe Campus, Copperbelt Province, Republic of Zambia | info@nkanacollege.edu.zm', 105, 23, { align: 'center' });
+  doc.text('Plot No. 7562, 27th St, Nkana East, Kitwe, Zambia | info@nkanacollege.edu.zm | +260 963 072421', 105, 23, { align: 'center' });
 
   doc.setFont('helvetica', 'bold');
   doc.setFontSize(11);
@@ -227,7 +227,7 @@ export function generateDailyOccupancyReportPDF(
   // Footer
   doc.setFontSize(7);
   doc.setTextColor(148, 163, 184);
-  doc.text('Nkana College of Applied Sciences and Education | P.O. Box 21992 Kitwe, Zambia | Confidential Document', 105, 290, { align: 'center' });
+  doc.text('Nkana College of Applied Sciences and Education | Plot No. 7562, 27th Street, Nkana East, Kitwe | Confidential Document', 105, 290, { align: 'center' });
 
   doc.save(`Nkana_College_Daily_Bed_Space_Report_${reportDate}.pdf`);
 }
@@ -349,7 +349,7 @@ export function generateAllocationReceiptPDF(app: BedApplication) {
   doc.setFontSize(7.5);
   doc.text('OFFICIAL BED SPACE ALLOCATION PASS & PAYMENT VOUCHER', 74, 15, { align: 'center' });
   doc.setFontSize(6.5);
-  doc.text('Kitwe, Zambia | Student Accommodation Directorate', 74, 21, { align: 'center' });
+  doc.text('Plot 7562, 27th St, Nkana East, Kitwe | Directorate of Student Housing', 74, 21, { align: 'center' });
 
   let y = 35;
   doc.setTextColor(30, 41, 59);
@@ -449,7 +449,7 @@ export function generateAdmissionOfferLetterPDF(app: import('../types').Admissio
   doc.setFontSize(9.5);
   doc.text('OFFICE OF THE REGISTRAR & ACADEMIC ADMISSIONS BOARD', 105, 18, { align: 'center' });
   doc.setFontSize(8);
-  doc.text('P.O. Box 21992, Kitwe, Copperbelt Province, Republic of Zambia | admissions@nkanacollege.edu.zm', 105, 24, { align: 'center' });
+  doc.text('Plot No. 7562, 27th Street, Nkana East, Kitwe | admissions@nkanacollege.edu.zm | +260 963 072421', 105, 24, { align: 'center' });
   doc.setFont('helvetica', 'bold');
   doc.setFontSize(10.5);
   doc.text('PROVISIONAL LETTER OF ADMISSION OFFER', 105, 32, { align: 'center' });
@@ -485,7 +485,7 @@ export function generateAdmissionOfferLetterPDF(app: import('../types').Admissio
   doc.text(`Dear ${app.fullName},`, 14, y);
 
   y += 6;
-  const letterBody = `Following the meeting of the Admissions and Academic Vetting Committee of Nkana College of Applied Sciences and Education, we are pleased to inform you that you have been provisionally admitted into the ${app.programChoice} program for the ${app.intakeSession} academic intake at our Kitwe Campus.\n\nYour secondary education credentials from ${app.previousSchool} have been thoroughly vetted against the statutory admission benchmarks set by the Ministry of Health, Nursing and Midwifery Council of Zambia (NMCZ), and the Health Professions Council of Zambia (HPCZ).`;
+  const letterBody = `Following the meeting of the Admissions and Academic Vetting Committee of Nkana College of Applied Sciences and Education, we are pleased to inform you that you have been provisionally admitted into the ${app.programChoice} program for the ${app.intakeSession} academic intake at our Nkana East Campus.\n\nYour secondary education credentials from ${app.previousSchool} have been thoroughly vetted against the statutory admission benchmarks set by the Ministry of Health, Nursing and Midwifery Council of Zambia (NMCZ), Health Professions Council of Zambia (HPCZ), and Teaching Council of Zambia (TCZ).`;
 
   const splitBody = doc.splitTextToSize(letterBody, 182);
   doc.text(splitBody, 14, y);
@@ -575,7 +575,7 @@ export function generateBedPaymentReceiptPDF(payment: PaymentTransaction, studen
   doc.setFontSize(7.5);
   doc.text('HOSTEL BED SPACE RENEWAL & PAYMENT RECEIPT', 74, 15, { align: 'center' });
   doc.setFontSize(6.5);
-  doc.text('Directorate of Finance & Student Housing | Kitwe, Zambia', 74, 21, { align: 'center' });
+  doc.text('Directorate of Finance & Student Housing | Republic of Zambia', 74, 21, { align: 'center' });
 
   let y = 35;
   doc.setTextColor(30, 41, 59);
