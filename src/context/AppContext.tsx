@@ -10,7 +10,10 @@ import {
   BedStatus,
   AdmissionApplication,
   BedPaymentExpiryAlert,
-  ExpiryReminderLog
+  ExpiryReminderLog,
+  StaffMember,
+  StudentCourseResult,
+  StaffEmploymentStatus
 } from '../types';
 import {
   INITIAL_HOSTEL_HALLS,
@@ -21,6 +24,10 @@ import {
   INITIAL_PAYMENTS,
   INITIAL_ADMISSION_APPLICATIONS
 } from '../data/mockData';
+import {
+  INITIAL_STAFF_MEMBERS,
+  INITIAL_STUDENT_RESULTS
+} from '../data/mockStaffData';
 import { realtimeSync, encryptData, decryptData } from '../utils/securityAndSync';
 import {
   generateDailyOccupancyReportPDF,
@@ -30,6 +37,8 @@ import {
 } from '../utils/generateReportsPdf';
 
 interface AppContextType {
+  isLoggedIn: boolean;
+  setIsLoggedIn: (logged: boolean) => void;
   currentRole: UserRole;
   setCurrentRole: (role: UserRole) => void;
   activeTab: string;
@@ -91,6 +100,19 @@ interface AppContextType {
   // Selected filters
   selectedHallId: string;
   setSelectedHallId: (id: string) => void;
+
+  // Staff & HR Management (Admin Control)
+  staffMembers: StaffMember[];
+  addStaffMember: (staff: Omit<StaffMember, 'id'>) => StaffMember;
+  updateStaffMember: (id: string, updates: Partial<StaffMember>) => void;
+  deleteStaffMember: (id: string) => void;
+  setStaffStatus: (id: string, status: StaffEmploymentStatus, details?: { leaveStart?: string; leaveEnd?: string; retiredDate?: string; notes?: string }) => void;
+
+  // Student Results Entry (Lecturers & Academic Faculty)
+  studentResults: StudentCourseResult[];
+  saveStudentResult: (result: Omit<StudentCourseResult, 'id' | 'lastUpdated'> & { id?: string }) => StudentCourseResult;
+  submitCourseResults: (courseCode: string) => void;
+  approveCourseResults: (courseCode: string) => void;
 }
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
@@ -106,6 +128,7 @@ export const calculateDaysRemaining = (expiryDateStr?: string, refDateStr: strin
 };
 
 export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [currentRole, setCurrentRole] = useState<UserRole>('student');
   const [activeTab, setActiveTab] = useState<string>('home');
   const [selectedHallId, setSelectedHallId] = useState<string>('all');
@@ -119,6 +142,32 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [admissionApplications, setAdmissionApplications] = useState<AdmissionApplication[]>(INITIAL_ADMISSION_APPLICATIONS);
 
   const [currentStudent, setCurrentStudent] = useState<Student>(INITIAL_STUDENTS[0]);
+
+  // Staff & HR Management (Admin Control)
+  const [staffMembers, setStaffMembers] = useState<StaffMember[]>(() => {
+    const saved = localStorage.getItem('nkana_staff_members_v1');
+    if (saved) {
+      try { return JSON.parse(saved); } catch (e) {}
+    }
+    return INITIAL_STAFF_MEMBERS;
+  });
+
+  // Student Results Entry (Lecturers & Academic Faculty)
+  const [studentResults, setStudentResults] = useState<StudentCourseResult[]>(() => {
+    const saved = localStorage.getItem('nkana_student_results_v1');
+    if (saved) {
+      try { return JSON.parse(saved); } catch (e) {}
+    }
+    return INITIAL_STUDENT_RESULTS;
+  });
+
+  useEffect(() => {
+    localStorage.setItem('nkana_staff_members_v1', JSON.stringify(staffMembers));
+  }, [staffMembers]);
+
+  useEffect(() => {
+    localStorage.setItem('nkana_student_results_v1', JSON.stringify(studentResults));
+  }, [studentResults]);
 
   // Bed Payment Expiry & Mock Notification States
   const [expiryAlerts, setExpiryAlerts] = useState<BedPaymentExpiryAlert[]>([]);
@@ -925,9 +974,95 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     return expiring.length;
   };
 
+  // Staff & HR Management (Admin User Control)
+  const addStaffMember = (newStaff: Omit<StaffMember, 'id'>): StaffMember => {
+    const created: StaffMember = {
+      ...newStaff,
+      id: `staff-${Date.now()}`
+    };
+    setStaffMembers(prev => [created, ...prev]);
+    return created;
+  };
+
+  const updateStaffMember = (id: string, updates: Partial<StaffMember>) => {
+    setStaffMembers(prev => prev.map(s => s.id === id ? { ...s, ...updates } : s));
+  };
+
+  const deleteStaffMember = (id: string) => {
+    setStaffMembers(prev => prev.filter(s => s.id !== id));
+  };
+
+  const setStaffStatus = (
+    id: string,
+    status: StaffEmploymentStatus,
+    details?: { leaveStart?: string; leaveEnd?: string; retiredDate?: string; notes?: string }
+  ) => {
+    setStaffMembers(prev => prev.map(s => {
+      if (s.id !== id) return s;
+      return {
+        ...s,
+        status,
+        leaveStartDate: details?.leaveStart !== undefined ? details.leaveStart : s.leaveStartDate,
+        leaveEndDate: details?.leaveEnd !== undefined ? details.leaveEnd : s.leaveEndDate,
+        retiredDate: details?.retiredDate !== undefined ? details.retiredDate : (status === 'retired' ? new Date().toISOString().split('T')[0] : s.retiredDate),
+        notes: details?.notes ? `${s.notes ? s.notes + ' | ' : ''}${details.notes}` : s.notes
+      };
+    }));
+  };
+
+  // Student Results Entry (Lecturers & Academic Faculty)
+  const calculateGradeAndRemark = (total: number): { letterGrade: 'A+' | 'A' | 'B+' | 'B' | 'C' | 'D' | 'F'; remark: 'Distinction' | 'Merit' | 'Credit' | 'Pass' | 'Fail / Supplementary' } => {
+    if (total >= 75) return { letterGrade: 'A+', remark: 'Distinction' };
+    if (total >= 70) return { letterGrade: 'A', remark: 'Merit' };
+    if (total >= 65) return { letterGrade: 'B+', remark: 'Credit' };
+    if (total >= 50) return { letterGrade: 'B', remark: 'Pass' };
+    if (total >= 40) return { letterGrade: 'C', remark: 'Fail / Supplementary' };
+    return { letterGrade: 'F', remark: 'Fail / Supplementary' };
+  };
+
+  const saveStudentResult = (resData: Omit<StudentCourseResult, 'id' | 'lastUpdated'> & { id?: string }): StudentCourseResult => {
+    const total = Math.min(100, Math.max(0, (resData.continuousAssessment || 0) + (resData.clinicalOrPracticum || 0) + (resData.finalExam || 0)));
+    const { letterGrade, remark } = calculateGradeAndRemark(total);
+    const now = new Date().toISOString().replace('T', ' ').substring(0, 16);
+
+    let savedResult: StudentCourseResult;
+    if (resData.id) {
+      savedResult = {
+        ...resData,
+        id: resData.id,
+        totalScore: total,
+        letterGrade,
+        remark,
+        lastUpdated: now
+      };
+      setStudentResults(prev => prev.map(r => r.id === resData.id ? savedResult : r));
+    } else {
+      savedResult = {
+        ...resData,
+        id: `res-${Date.now()}`,
+        totalScore: total,
+        letterGrade,
+        remark,
+        lastUpdated: now
+      };
+      setStudentResults(prev => [savedResult, ...prev]);
+    }
+    return savedResult;
+  };
+
+  const submitCourseResults = (courseCode: string) => {
+    setStudentResults(prev => prev.map(r => r.courseCode === courseCode ? { ...r, status: 'submitted' as const } : r));
+  };
+
+  const approveCourseResults = (courseCode: string) => {
+    setStudentResults(prev => prev.map(r => r.courseCode === courseCode ? { ...r, status: 'approved' as const } : r));
+  };
+
   return (
     <AppContext.Provider
       value={{
+        isLoggedIn,
+        setIsLoggedIn,
         currentRole,
         setCurrentRole,
         activeTab,
@@ -966,7 +1101,16 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         sendBatchExpiryReminders,
         calculateDaysRemaining,
         selectedHallId,
-        setSelectedHallId
+        setSelectedHallId,
+        staffMembers,
+        addStaffMember,
+        updateStaffMember,
+        deleteStaffMember,
+        setStaffStatus,
+        studentResults,
+        saveStudentResult,
+        submitCourseResults,
+        approveCourseResults
       }}
     >
       {children}

@@ -45,53 +45,53 @@ export const AboutView: React.FC = () => {
 
       {/* Leadership & Mission Grid */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-        <div className="bg-white p-6 rounded-2xl border border-sky-100 shadow-sm space-y-3">
-          <div className="w-10 h-10 rounded-xl bg-sky-100 text-sky-700 flex items-center justify-center">
-            <Award className="w-5 h-5" />
+        <div className="bg-white/25 backdrop-blur-[25px] p-6 rounded-2xl border border-white/30 shadow-md space-y-3">
+          <div className="w-10 h-10 rounded-xl bg-sky-600/40 text-white flex items-center justify-center border border-white/30 backdrop-blur-md">
+            <Award className="w-5 h-5 text-white" />
           </div>
-          <h3 className="text-base font-bold text-slate-900">National Accreditation</h3>
-          <p className="text-xs text-slate-600 leading-relaxed">
+          <h3 className="text-base font-black text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.6)]">National Accreditation</h3>
+          <p className="text-xs text-white/90 drop-shadow-[0_1px_2px_rgba(0,0,0,0.5)] font-medium leading-relaxed">
             Fully registered and accredited by the <strong>Nursing and Midwifery Council of Zambia (NMCZ)</strong>, the <strong>Health Professions Council of Zambia (HPCZ)</strong>, and the <strong>Teaching Council of Zambia (TCZ)</strong>.
           </p>
         </div>
 
-        <div className="bg-white p-6 rounded-2xl border border-sky-100 shadow-sm space-y-3">
-          <div className="w-10 h-10 rounded-xl bg-sky-100 text-sky-700 flex items-center justify-center">
-            <BookOpen className="w-5 h-5" />
+        <div className="bg-white/25 backdrop-blur-[25px] p-6 rounded-2xl border border-white/30 shadow-md space-y-3">
+          <div className="w-10 h-10 rounded-xl bg-sky-600/40 text-white flex items-center justify-center border border-white/30 backdrop-blur-md">
+            <BookOpen className="w-5 h-5 text-white" />
           </div>
-          <h3 className="text-base font-bold text-slate-900">Our Vision</h3>
-          <p className="text-xs text-slate-600 leading-relaxed">
+          <h3 className="text-base font-black text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.6)]">Our Vision</h3>
+          <p className="text-xs text-white/90 drop-shadow-[0_1px_2px_rgba(0,0,0,0.5)] font-medium leading-relaxed">
             To be a benchmark African centre of excellence in applied health sciences, clinical research, patient-centered care, and modern teacher education.
           </p>
         </div>
 
-        <div className="bg-white p-6 rounded-2xl border border-sky-100 shadow-sm space-y-3">
-          <div className="w-10 h-10 rounded-xl bg-sky-100 text-sky-700 flex items-center justify-center">
-            <Users className="w-5 h-5" />
+        <div className="bg-white/25 backdrop-blur-[25px] p-6 rounded-2xl border border-white/30 shadow-md space-y-3">
+          <div className="w-10 h-10 rounded-xl bg-sky-600/40 text-white flex items-center justify-center border border-white/30 backdrop-blur-md">
+            <Users className="w-5 h-5 text-white" />
           </div>
-          <h3 className="text-base font-bold text-slate-900">Student-First Community</h3>
-          <p className="text-xs text-slate-600 leading-relaxed">
+          <h3 className="text-base font-black text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.6)]">Student-First Community</h3>
+          <p className="text-xs text-white/90 drop-shadow-[0_1px_2px_rgba(0,0,0,0.5)] font-medium leading-relaxed">
             Over 1,200 active scholars across on-campus residential hostels, modern simulation wards, and state-of-the-art diagnostic laboratories.
           </p>
         </div>
       </div>
 
       {/* Principal's Address & Campus Photos */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center bg-white p-6 sm:p-8 rounded-3xl border border-sky-100 shadow-sm">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center bg-white/25 backdrop-blur-[25px] p-6 sm:p-8 rounded-3xl border border-white/30 shadow-md">
         <div className="space-y-4">
-          <span className="text-xs font-bold text-sky-700 uppercase tracking-widest bg-sky-50 px-3 py-1 rounded-full">
+          <span className="text-xs font-bold text-sky-200 uppercase tracking-widest bg-white/20 border border-white/30 px-3 py-1 rounded-full backdrop-blur-md drop-shadow-sm">
             Principal's Desk
           </span>
-          <h2 className="text-2xl font-black text-slate-900 tracking-tight">
+          <h2 className="text-2xl font-black text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.6)] tracking-tight">
             Welcoming Future Healthcare & Education Leaders
           </h2>
-          <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+          <p className="text-xs sm:text-sm text-white/90 font-medium drop-shadow-[0_1px_2px_rgba(0,0,0,0.5)] leading-relaxed">
             "At Nkana College of Applied Sciences and Education, we believe that education is not merely the transmission of facts, but the ignition of dedication and integrity. Our students learn side by side with experienced hospital clinicians and senior educators, gaining the practical confidence needed to serve in urban hospitals and rural clinics across Zambia."
           </p>
 
           <div className="pt-2">
-            <span className="font-extrabold text-sm text-slate-900 block">Dr. Mwamba Silungwe (PhD, MSc)</span>
-            <span className="text-xs text-slate-500">Principal & Academic Secretary</span>
+            <span className="font-extrabold text-sm text-white block drop-shadow-sm">Dr. Mwamba Silungwe (PhD, MSc)</span>
+            <span className="text-xs text-white/80 font-medium drop-shadow-sm">Principal & Academic Secretary</span>
           </div>
 
           <div className="pt-2 flex gap-3">
@@ -104,7 +104,7 @@ export const AboutView: React.FC = () => {
             </button>
             <button
               onClick={() => setActiveTab('bed_spaces')}
-              className="px-5 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-800 rounded-xl text-xs font-bold transition-all"
+              className="px-5 py-2.5 bg-white/20 hover:bg-white/30 text-white rounded-xl text-xs font-bold border border-white/30 backdrop-blur-md transition-all"
             >
               Hostel Accommodation
             </button>
@@ -112,26 +112,26 @@ export const AboutView: React.FC = () => {
         </div>
 
         <div className="grid grid-cols-2 gap-3">
-          <div className="rounded-2xl overflow-hidden shadow-xs border border-slate-200 group">
+          <div className="rounded-2xl overflow-hidden shadow-xs border border-white/30 group">
             <img
               src="/src/assets/images/nkana_college_gate_1790746735611.jpg"
               alt="Nkana College Entrance Gate"
               referrerPolicy="no-referrer"
               className="w-full h-40 object-cover group-hover:scale-105 transition-transform duration-300"
             />
-            <div className="p-2.5 bg-white text-center">
-              <span className="text-[10px] font-bold text-slate-800">College Entrance Gate</span>
+            <div className="p-2.5 bg-white/25 backdrop-blur-md text-center border-t border-white/20">
+              <span className="text-[10px] font-bold text-white drop-shadow-sm">College Entrance Gate</span>
             </div>
           </div>
-          <div className="rounded-2xl overflow-hidden shadow-xs border border-slate-200 group">
+          <div className="rounded-2xl overflow-hidden shadow-xs border border-white/30 group">
             <img
               src="/src/assets/images/nkana_clinical_students_1790778996968.jpg"
               alt="Nursing and Healthcare students at Nkana College"
               referrerPolicy="no-referrer"
               className="w-full h-40 object-cover group-hover:scale-105 transition-transform duration-300"
             />
-            <div className="p-2.5 bg-white text-center">
-              <span className="text-[10px] font-bold text-slate-800">Nursing & Midwifery Cohort</span>
+            <div className="p-2.5 bg-white/25 backdrop-blur-md text-center border-t border-white/20">
+              <span className="text-[10px] font-bold text-white drop-shadow-sm">Nursing & Midwifery Cohort</span>
             </div>
           </div>
           <div className="rounded-2xl overflow-hidden shadow-xs border border-slate-200 group">

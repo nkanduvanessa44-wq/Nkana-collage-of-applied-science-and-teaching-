@@ -90,25 +90,25 @@ export const StudentPortal: React.FC = () => {
 
   return (
     <div className="max-w-5xl mx-auto space-y-6">
-      {/* Student Profile Banner in Light Blue / Sky */}
-      <div className="bg-gradient-to-r from-sky-900 to-slate-900 text-white rounded-2xl p-6 shadow-md border border-sky-800 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+      {/* Student Profile Banner in Glass */}
+      <div className="bg-white/25 backdrop-blur-[25px] text-white rounded-2xl p-6 shadow-md border border-white/30 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div className="flex items-center gap-4">
-          <div className="w-16 h-16 rounded-2xl bg-white text-sky-900 flex items-center justify-center font-black text-2xl shadow-sm">
+          <div className="w-16 h-16 rounded-2xl bg-white/30 text-white flex items-center justify-center font-black text-2xl shadow-sm border border-white/40 backdrop-blur-md">
             {currentStudent.fullName.split(' ').map(n => n[0]).join('')}
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <span className="text-xs font-bold text-sky-200 uppercase tracking-widest bg-sky-800 px-2 py-0.5 rounded border border-sky-700">
+              <span className="text-xs font-bold text-sky-200 uppercase tracking-widest bg-white/20 px-2 py-0.5 rounded border border-white/30 backdrop-blur-md">
                 Nkana Resident Scholar
               </span>
               <span className="text-xs text-sky-200 font-mono">
                 {currentStudent.studentNumber}
               </span>
             </div>
-            <h1 className="text-2xl font-black text-white mt-1">
+            <h1 className="text-2xl font-black text-white drop-shadow-[0_1px_3px_rgba(0,0,0,0.6)] mt-1">
               {currentStudent.fullName}
             </h1>
-            <p className="text-xs text-sky-100">
+            <p className="text-xs text-white/90 drop-shadow-sm font-medium">
               {currentStudent.program} • {currentStudent.yearOfStudy}
             </p>
           </div>
@@ -122,7 +122,7 @@ export const StudentPortal: React.FC = () => {
               const selected = students.find(s => s.id === e.target.value);
               if (selected) setCurrentStudent(selected);
             }}
-            className="text-xs bg-sky-950 border border-sky-700 text-white p-2 rounded-xl focus:outline-hidden"
+            className="text-xs bg-white/20 border border-white/30 text-white p-2 rounded-xl focus:outline-hidden backdrop-blur-md"
           >
             {students.slice(0, 8).map(s => (
               <option key={s.id} value={s.id} className="bg-slate-900 text-white">
@@ -133,7 +133,7 @@ export const StudentPortal: React.FC = () => {
 
           <button
             onClick={() => exportAllocationPass(studentApp.id)}
-            className="flex items-center justify-center gap-2 px-4 py-2 bg-sky-600 hover:bg-sky-500 text-white rounded-xl text-xs font-bold shadow-xs transition-all"
+            className="flex items-center justify-center gap-2 px-4 py-2 bg-sky-600 hover:bg-sky-500 text-white rounded-xl text-xs font-bold shadow-md transition-all"
           >
             <FileDown className="w-4 h-4" />
             <span>Download Room Pass (PDF)</span>
@@ -249,21 +249,21 @@ export const StudentPortal: React.FC = () => {
         {/* Left Column (2 cols): Allocation Status & Housing Slip */}
         <div className="lg:col-span-2 space-y-5">
           {/* Active Allocation Card */}
-          <div className="bg-white rounded-2xl border border-sky-100 p-6 shadow-xs space-y-4">
-            <div className="flex justify-between items-center border-b border-slate-100 pb-3">
+          <div className="bg-white/25 backdrop-blur-[25px] rounded-2xl border border-white/30 p-6 shadow-md space-y-4 text-white">
+            <div className="flex justify-between items-center border-b border-white/20 pb-3">
               <div>
-                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
+                <span className="text-[10px] font-bold text-sky-200 uppercase tracking-wider drop-shadow-sm">
                   Residential Hall Assignment
                 </span>
-                <h2 className="text-lg font-extrabold text-slate-900 mt-0.5">
+                <h2 className="text-lg font-black text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.6)] mt-0.5">
                   {hall?.name || 'Main Campus Hall'}
                 </h2>
               </div>
               <span
-                className={`text-xs font-bold px-3 py-1 rounded-full ${
+                className={`text-xs font-bold px-3 py-1 rounded-full backdrop-blur-md ${
                   currentStudent.checkInStatus === 'checked_in'
-                    ? 'bg-sky-100 text-sky-800 border border-sky-200'
-                    : 'bg-amber-100 text-amber-800 border border-amber-300'
+                    ? 'bg-emerald-500/25 text-emerald-200 border border-emerald-300/30'
+                    : 'bg-amber-500/25 text-amber-200 border border-amber-300/30'
                 }`}
               >
                 {currentStudent.checkInStatus === 'checked_in' ? '✓ Physical Check-In Verified' : 'Check-In Pending'}
@@ -271,49 +271,41 @@ export const StudentPortal: React.FC = () => {
             </div>
 
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-              <div className="bg-slate-50 p-3 rounded-xl border border-slate-100">
-                <span className="text-[10px] font-bold text-slate-400 uppercase block">Room Number</span>
-                <span className="text-lg font-black text-slate-900 mt-0.5 block">{room?.roomNumber || 'A-101'}</span>
-                <span className="text-[10px] text-slate-500">Floor {room?.floor ?? 0}</span>
+              <div className="bg-white/20 backdrop-blur-md p-3 rounded-xl border border-white/30">
+                <span className="text-[10px] font-bold text-white/70 uppercase block">Room Number</span>
+                <span className="text-lg font-black text-white drop-shadow-sm mt-0.5 block">{room?.roomNumber || 'A-101'}</span>
+                <span className="text-[10px] text-white/80">Floor {room?.floor ?? 0}</span>
               </div>
 
-              <div className="bg-slate-50 p-3 rounded-xl border border-slate-100">
-                <span className="text-[10px] font-bold text-slate-400 uppercase block">Allocated Bed</span>
-                <span className="text-sm font-extrabold text-sky-700 mt-0.5 block">{bed?.bedNumber || 'Bed 1'}</span>
-                <span className="text-[10px] text-slate-500">{room?.roomType.replace('_', ' ')}</span>
+              <div className="bg-white/20 backdrop-blur-md p-3 rounded-xl border border-white/30">
+                <span className="text-[10px] font-bold text-white/70 uppercase block">Allocated Bed</span>
+                <span className="text-sm font-extrabold text-sky-200 drop-shadow-sm mt-0.5 block">{bed?.bedNumber || 'Bed 1'}</span>
+                <span className="text-[10px] text-white/80">{room?.roomType.replace('_', ' ')}</span>
               </div>
 
-              <div className="bg-slate-50 p-3 rounded-xl border border-slate-100">
-                <span className="text-[10px] font-bold text-slate-400 uppercase block">Issued Room Key</span>
-                <span className="text-sm font-mono font-bold text-slate-900 mt-0.5 block">
+              <div className="bg-white/20 backdrop-blur-md p-3 rounded-xl border border-white/30">
+                <span className="text-[10px] font-bold text-white/70 uppercase block">Issued Room Key</span>
+                <span className="text-sm font-mono font-bold text-white drop-shadow-sm mt-0.5 block">
                   {currentStudent.keyNumber || 'At Reception'}
                 </span>
-                <span className="text-[10px] text-slate-500">Signed with Matron</span>
+                <span className="text-[10px] text-white/80">Signed with Matron</span>
               </div>
 
               <div
                 onClick={() => triggerExpiryAlert(currentStudent.id, daysUntilExpiry)}
-                className={`p-3 rounded-xl border cursor-pointer hover:shadow-xs transition-all ${
+                className={`p-3 rounded-xl border cursor-pointer hover:shadow-xs transition-all backdrop-blur-md ${
                   isExpired
-                    ? 'bg-red-50 border-red-200'
+                    ? 'bg-red-500/30 border-red-300/40 text-red-100'
                     : isExpiringSoon
-                    ? 'bg-amber-50 border-amber-300'
-                    : 'bg-slate-50 border-slate-100'
+                    ? 'bg-amber-500/30 border-amber-300/40 text-amber-100'
+                    : 'bg-white/20 border-white/30 text-white'
                 }`}
               >
-                <span className="text-[10px] font-bold text-slate-400 uppercase block">Payment Status</span>
-                <span
-                  className={`text-sm font-extrabold mt-0.5 block ${
-                    isExpired
-                      ? 'text-red-700'
-                      : isExpiringSoon
-                      ? 'text-amber-700'
-                      : 'text-sky-700'
-                  }`}
-                >
+                <span className="text-[10px] font-bold uppercase block opacity-80">Payment Status</span>
+                <span className="text-sm font-extrabold mt-0.5 block drop-shadow-sm">
                   {isExpired ? 'OVERDUE' : isExpiringSoon ? `${daysUntilExpiry}d Left (Due)` : 'Cleared'}
                 </span>
-                <span className="text-[10px] text-slate-500 truncate block">
+                <span className="text-[10px] truncate block opacity-80">
                   {isExpiringSoon ? `Due ${currentStudent.bedPaymentExpiryDate}` : 'Term Valid'}
                 </span>
               </div>
@@ -321,10 +313,10 @@ export const StudentPortal: React.FC = () => {
 
             {/* Room Amenities */}
             <div className="pt-2">
-              <span className="text-xs font-bold text-slate-700 block mb-2">Room & Hall Amenities:</span>
+              <span className="text-xs font-bold text-white block mb-2 drop-shadow-sm">Room & Hall Amenities:</span>
               <div className="flex flex-wrap gap-1.5">
                 {room?.amenities.concat(hall?.amenities || []).map((amenity, idx) => (
-                  <span key={idx} className="text-xs bg-slate-100 text-slate-700 px-2.5 py-1 rounded-lg border border-slate-200">
+                  <span key={idx} className="text-xs bg-white/20 text-white px-2.5 py-1 rounded-lg border border-white/30 backdrop-blur-md">
                     ✓ {amenity}
                   </span>
                 ))}
@@ -333,24 +325,24 @@ export const StudentPortal: React.FC = () => {
           </div>
 
           {/* Roommates Card */}
-          <div className="bg-white rounded-2xl border border-sky-100 p-6 shadow-xs space-y-3">
-            <h3 className="text-sm font-bold text-slate-900 flex items-center gap-2">
-              <Users className="w-4 h-4 text-sky-600" />
+          <div className="bg-white/25 backdrop-blur-[25px] rounded-2xl border border-white/30 p-6 shadow-md space-y-3 text-white">
+            <h3 className="text-sm font-bold text-white flex items-center gap-2 drop-shadow-sm">
+              <Users className="w-4 h-4 text-sky-300" />
               <span>Room Co-Residents (Room {room?.roomNumber})</span>
             </h3>
 
             {roomMates.length === 0 ? (
-              <p className="text-xs text-slate-500">No other assigned roommates in this room yet.</p>
+              <p className="text-xs text-white/80">No other assigned roommates in this room yet.</p>
             ) : (
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {roomMates.map((mate, i) => (
-                  <div key={i} className="p-3 bg-slate-50 rounded-xl border border-slate-200 flex items-center gap-3">
-                    <div className="w-9 h-9 rounded-full bg-sky-700 text-white flex items-center justify-center text-xs font-bold shrink-0">
+                  <div key={i} className="p-3 bg-white/20 backdrop-blur-md rounded-xl border border-white/30 flex items-center gap-3">
+                    <div className="w-9 h-9 rounded-full bg-sky-600 text-white flex items-center justify-center text-xs font-bold shrink-0">
                       {mate.name[0]}
                     </div>
                     <div>
-                      <span className="text-xs font-bold text-slate-900 block">{mate.name}</span>
-                      <span className="text-[10px] text-slate-500">{mate.bedNumber}</span>
+                      <span className="text-xs font-bold text-white block drop-shadow-sm">{mate.name}</span>
+                      <span className="text-[10px] text-white/80">{mate.bedNumber}</span>
                     </div>
                   </div>
                 ))}
@@ -359,18 +351,18 @@ export const StudentPortal: React.FC = () => {
           </div>
 
           {/* Maintenance Request Form */}
-          <div className="bg-white rounded-2xl border border-sky-100 p-6 shadow-xs space-y-3">
-            <h3 className="text-sm font-bold text-slate-900 flex items-center gap-2">
-              <AlertTriangle className="w-4 h-4 text-amber-600" />
+          <div className="bg-white/25 backdrop-blur-[25px] rounded-2xl border border-white/30 p-6 shadow-md space-y-3 text-white">
+            <h3 className="text-sm font-bold text-white flex items-center gap-2 drop-shadow-sm">
+              <AlertTriangle className="w-4 h-4 text-amber-300" />
               <span>Report Bed Space or Room Maintenance</span>
             </h3>
-            <p className="text-xs text-slate-500">
+            <p className="text-xs text-white/80">
               Submit requests for plumbing, lighting, mattress, or window lock repairs directly to the Hostel Works Department.
             </p>
 
             {maintenanceSubmitted ? (
-              <div className="bg-sky-50 border border-sky-200 text-sky-900 p-3 rounded-xl text-xs font-bold flex items-center gap-2">
-                <CheckCircle2 className="w-4 h-4 text-sky-600 shrink-0" />
+              <div className="bg-emerald-500/25 border border-emerald-300/30 text-white p-3 rounded-xl text-xs font-bold flex items-center gap-2 backdrop-blur-md">
+                <CheckCircle2 className="w-4 h-4 text-emerald-300 shrink-0" />
                 <span>Maintenance request logged! Ticket #MT-2026-081 created. Duty repairman dispatched.</span>
               </div>
             ) : (
@@ -381,11 +373,11 @@ export const StudentPortal: React.FC = () => {
                   placeholder="Describe the issue (e.g. Fluorescent tube flickering in Room A-101; bed frame bolt loose)..."
                   value={maintenanceText}
                   onChange={(e) => setMaintenanceText(e.target.value)}
-                  className="w-full text-xs p-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-sky-500 focus:outline-hidden"
+                  className="w-full text-xs p-3 rounded-xl border border-white/30 bg-white/20 text-white placeholder:text-white/60 focus:bg-white/30 focus:outline-hidden backdrop-blur-md"
                 ></textarea>
                 <button
                   type="submit"
-                  className="px-4 py-2 bg-sky-600 hover:bg-sky-500 text-white text-xs font-bold rounded-lg shadow-xs transition-all"
+                  className="px-4 py-2 bg-sky-600 hover:bg-sky-500 text-white text-xs font-bold rounded-lg shadow-md transition-all"
                 >
                   Submit Maintenance Ticket
                 </button>
@@ -397,38 +389,38 @@ export const StudentPortal: React.FC = () => {
         {/* Right Column: Warden Contact & College Hostel Regulations */}
         <div className="space-y-5">
           {/* Hostel Warden Contacts */}
-          <div className="bg-white rounded-2xl border border-sky-100 p-5 shadow-xs space-y-3">
-            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400">
+          <div className="bg-white/25 backdrop-blur-[25px] rounded-2xl border border-white/30 p-5 shadow-md space-y-3 text-white">
+            <h3 className="text-xs font-bold uppercase tracking-wider text-sky-200 drop-shadow-sm">
               Hall Duty Administration
             </h3>
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-sky-100 text-sky-700 flex items-center justify-center font-bold">
+              <div className="w-10 h-10 rounded-full bg-sky-600 text-white flex items-center justify-center font-bold border border-white/30 backdrop-blur-md">
                 W
               </div>
               <div>
-                <h4 className="text-sm font-bold text-slate-900">{hall?.wardenName || 'Matron Charity Chilufya'}</h4>
-                <p className="text-xs text-slate-500">Resident Hall Warden</p>
+                <h4 className="text-sm font-bold text-white drop-shadow-sm">{hall?.wardenName || 'Matron Charity Chilufya'}</h4>
+                <p className="text-xs text-white/80">Resident Hall Warden</p>
               </div>
             </div>
 
-            <div className="bg-slate-50 p-2.5 rounded-lg border border-slate-100 text-xs flex items-center justify-between">
-              <span className="text-slate-600">Emergency Phone:</span>
-              <a href={`tel:${hall?.wardenPhone}`} className="font-bold text-sky-800 hover:underline">
+            <div className="bg-white/20 backdrop-blur-md p-2.5 rounded-lg border border-white/30 text-xs flex items-center justify-between">
+              <span className="text-white/80">Emergency Phone:</span>
+              <a href={`tel:${hall?.wardenPhone}`} className="font-bold text-sky-200 hover:underline drop-shadow-sm">
                 {hall?.wardenPhone || '+260 977 441 298'}
               </a>
             </div>
 
-            <div className="text-[11px] text-slate-500 pt-1">
+            <div className="text-[11px] text-white/80 pt-1">
               Duty hours: 24/7 on-call for medical emergencies, room access, or security alerts.
             </div>
           </div>
 
           {/* Residence Rules & Regulations */}
-          <div className="bg-slate-50 rounded-2xl border border-slate-200 p-5 space-y-3">
-            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-900">
+          <div className="bg-white/25 backdrop-blur-[25px] rounded-2xl border border-white/30 p-5 space-y-3 text-white shadow-md">
+            <h3 className="text-xs font-bold uppercase tracking-wider text-sky-200 drop-shadow-sm">
               Nkana College Hostel Rules
             </h3>
-            <ul className="text-xs text-slate-600 space-y-2 list-disc list-inside">
+            <ul className="text-xs text-white/90 space-y-2 list-disc list-inside font-medium">
               <li><strong>Curfew Hours:</strong> Main hostel gates close promptly at 22:00 hours daily.</li>
               <li><strong>Quiet Hours:</strong> Mandatory silent study hours between 21:00 and 06:00.</li>
               <li><strong>Cooking Appliances:</strong> Designated kitchenettes only. High-wattage coils prohibited in rooms.</li>

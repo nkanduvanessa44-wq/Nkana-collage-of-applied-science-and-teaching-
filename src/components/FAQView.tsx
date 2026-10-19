@@ -230,21 +230,21 @@ export const FAQView: React.FC<FAQViewProps> = ({ isEmbedded = false }) => {
       )}
 
       {/* Search and Category Filter Strip */}
-      <div className="bg-white/90 backdrop-blur-md p-4 sm:p-5 rounded-2xl border border-slate-200/80 shadow-xs space-y-4">
+      <div className="bg-white/25 backdrop-blur-[25px] p-4 sm:p-5 rounded-2xl border border-white/30 shadow-md space-y-4 text-white">
         {/* Search Input */}
         <div className="relative">
-          <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-3.5" />
+          <Search className="w-4 h-4 text-white/60 absolute left-3.5 top-3.5" />
           <input
             type="text"
             placeholder="Search keywords (e.g. deadline, roommate, cooking, curfew, payment)..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-10 pr-24 py-2.5 rounded-xl border border-slate-200 bg-slate-50/50 text-xs sm:text-sm focus:outline-hidden focus:ring-2 focus:ring-sky-500 transition-all"
+            className="w-full pl-10 pr-24 py-2.5 rounded-xl border border-white/30 bg-white/20 text-xs sm:text-sm text-white placeholder:text-white/60 focus:outline-hidden focus:bg-white/30 backdrop-blur-md transition-all"
           />
           {searchQuery && (
             <button
               onClick={() => setSearchQuery('')}
-              className="absolute right-3 top-2.5 text-xs font-bold text-slate-400 hover:text-slate-600 bg-slate-200/80 px-2 py-0.5 rounded-md"
+              className="absolute right-3 top-2.5 text-xs font-bold text-white/80 hover:text-white bg-white/20 px-2 py-0.5 rounded-md"
             >
               Clear
             </button>
@@ -258,7 +258,7 @@ export const FAQView: React.FC<FAQViewProps> = ({ isEmbedded = false }) => {
             className={`px-3.5 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition-all flex items-center gap-1.5 ${
               selectedCategory === 'all'
                 ? 'bg-sky-600 text-white shadow-xs'
-                : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                : 'bg-white/20 text-white hover:bg-white/30 border border-white/30 backdrop-blur-md'
             }`}
           >
             <span>All Questions</span>
@@ -272,7 +272,7 @@ export const FAQView: React.FC<FAQViewProps> = ({ isEmbedded = false }) => {
             className={`px-3.5 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition-all flex items-center gap-1.5 ${
               selectedCategory === 'allocation'
                 ? 'bg-sky-600 text-white shadow-xs'
-                : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                : 'bg-white/20 text-white hover:bg-white/30 border border-white/30 backdrop-blur-md'
             }`}
           >
             <Bed className="w-3.5 h-3.5" />
@@ -284,7 +284,7 @@ export const FAQView: React.FC<FAQViewProps> = ({ isEmbedded = false }) => {
             className={`px-3.5 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition-all flex items-center gap-1.5 ${
               selectedCategory === 'payment'
                 ? 'bg-sky-600 text-white shadow-xs'
-                : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                : 'bg-white/20 text-white hover:bg-white/30 border border-white/30 backdrop-blur-md'
             }`}
           >
             <CreditCard className="w-3.5 h-3.5" />
@@ -296,7 +296,7 @@ export const FAQView: React.FC<FAQViewProps> = ({ isEmbedded = false }) => {
             className={`px-3.5 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition-all flex items-center gap-1.5 ${
               selectedCategory === 'rules'
                 ? 'bg-sky-600 text-white shadow-xs'
-                : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                : 'bg-white/20 text-white hover:bg-white/30 border border-white/30 backdrop-blur-md'
             }`}
           >
             <ShieldAlert className="w-3.5 h-3.5" />
@@ -308,7 +308,7 @@ export const FAQView: React.FC<FAQViewProps> = ({ isEmbedded = false }) => {
             className={`px-3.5 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition-all flex items-center gap-1.5 ${
               selectedCategory === 'checkin'
                 ? 'bg-sky-600 text-white shadow-xs'
-                : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                : 'bg-white/20 text-white hover:bg-white/30 border border-white/30 backdrop-blur-md'
             }`}
           >
             <CheckCircle2 className="w-3.5 h-3.5" />
@@ -320,10 +320,10 @@ export const FAQView: React.FC<FAQViewProps> = ({ isEmbedded = false }) => {
       {/* Accordion Questions List */}
       <div className="space-y-3">
         {filteredFAQs.length === 0 ? (
-          <div className="bg-white p-10 text-center rounded-2xl border border-slate-200">
-            <HelpCircle className="w-10 h-10 text-slate-300 mx-auto mb-2" />
-            <h3 className="text-sm font-bold text-slate-800">No matching questions found</h3>
-            <p className="text-xs text-slate-500 mt-1 max-w-sm mx-auto">
+          <div className="bg-white/25 backdrop-blur-[25px] p-10 text-center rounded-2xl border border-white/30 text-white">
+            <HelpCircle className="w-10 h-10 text-white/60 mx-auto mb-2" />
+            <h3 className="text-sm font-bold text-white">No matching questions found</h3>
+            <p className="text-xs text-white/80 mt-1 max-w-sm mx-auto">
               Try searching with alternative keywords or contact our admissions and hostel warden desk directly.
             </p>
             <button
@@ -331,7 +331,7 @@ export const FAQView: React.FC<FAQViewProps> = ({ isEmbedded = false }) => {
                 setSearchQuery('');
                 setSelectedCategory('all');
               }}
-              className="mt-3 px-4 py-1.5 bg-sky-600 text-white rounded-lg text-xs font-bold hover:bg-sky-500"
+              className="mt-3 px-4 py-1.5 bg-sky-600 text-white rounded-lg text-xs font-bold hover:bg-sky-500 shadow-md"
             >
               Reset Filters
             </button>
@@ -342,10 +342,10 @@ export const FAQView: React.FC<FAQViewProps> = ({ isEmbedded = false }) => {
             return (
               <div
                 key={faq.id}
-                className={`bg-white rounded-2xl border transition-all duration-200 overflow-hidden ${
+                className={`bg-white/25 backdrop-blur-[25px] rounded-2xl border border-white/30 transition-all duration-200 overflow-hidden ${
                   isExpanded
-                    ? 'border-sky-300 shadow-md ring-1 ring-sky-100'
-                    : 'border-slate-200 hover:border-sky-200 hover:shadow-xs'
+                    ? 'border-sky-300/80 shadow-md ring-1 ring-sky-200/40 bg-white/35'
+                    : 'hover:bg-white/35 hover:shadow-xs'
                 }`}
               >
                 <button
@@ -449,16 +449,16 @@ export const FAQView: React.FC<FAQViewProps> = ({ isEmbedded = false }) => {
       </div>
 
       {/* Direct Contact & WhatsApp HelpDesk Card */}
-      <section className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200/80 shadow-sm space-y-4">
+      <section className="bg-white/25 backdrop-blur-[25px] rounded-3xl p-6 sm:p-8 border border-white/30 shadow-md space-y-4 text-white">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
           <div className="space-y-1">
-            <span className="text-xs font-bold uppercase tracking-wider text-sky-700">
+            <span className="text-xs font-bold uppercase tracking-wider text-sky-200 bg-white/20 px-2.5 py-0.5 rounded-full border border-white/30 backdrop-blur-md drop-shadow-sm">
               Still Have Questions?
             </span>
-            <h3 className="text-lg sm:text-xl font-black text-slate-900">
+            <h3 className="text-lg sm:text-xl font-black text-white drop-shadow-[0_1px_3px_rgba(0,0,0,0.6)]">
               Speak Directly with Admissions & Hostel Wardens
             </h3>
-            <p className="text-xs text-slate-500 max-w-xl">
+            <p className="text-xs text-white/90 drop-shadow-[0_1px_2px_rgba(0,0,0,0.5)] max-w-xl">
               Our student affairs and hostel accommodation officers are on standby to assist prospective and continuing students.
             </p>
           </div>
@@ -471,43 +471,43 @@ export const FAQView: React.FC<FAQViewProps> = ({ isEmbedded = false }) => {
           </button>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2 border-t border-slate-100">
-          <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200/70 flex items-center gap-3">
-            <div className="w-9 h-9 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2 border-t border-white/20">
+          <div className="p-3.5 rounded-xl bg-white/20 border border-white/30 backdrop-blur-md flex items-center gap-3">
+            <div className="w-9 h-9 rounded-lg bg-emerald-600/40 text-emerald-200 flex items-center justify-center shrink-0 border border-white/30 backdrop-blur-md">
               <Phone className="w-4 h-4" />
             </div>
             <div>
-              <span className="text-[10px] text-slate-500 font-bold uppercase block">Admissions Desk</span>
-              <a href="tel:+260963072421" className="text-xs font-bold text-slate-900 hover:text-sky-600">
+              <span className="text-[10px] text-white/80 font-bold uppercase block drop-shadow-sm">Admissions Desk</span>
+              <a href="tel:+260963072421" className="text-xs font-bold text-white hover:text-sky-200 drop-shadow-sm">
                 +260 963 072421
               </a>
             </div>
           </div>
 
-          <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200/70 flex items-center gap-3">
-            <div className="w-9 h-9 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0">
+          <div className="p-3.5 rounded-xl bg-white/20 border border-white/30 backdrop-blur-md flex items-center gap-3">
+            <div className="w-9 h-9 rounded-lg bg-emerald-600/40 text-emerald-200 flex items-center justify-center shrink-0 border border-white/30 backdrop-blur-md">
               <MessageSquare className="w-4 h-4" />
             </div>
             <div>
-              <span className="text-[10px] text-slate-500 font-bold uppercase block">WhatsApp Support</span>
+              <span className="text-[10px] text-white/80 font-bold uppercase block drop-shadow-sm">WhatsApp Support</span>
               <a
                 href="https://wa.me/260973350816"
                 target="_blank"
                 rel="noreferrer"
-                className="text-xs font-bold text-emerald-700 hover:underline"
+                className="text-xs font-bold text-emerald-300 hover:underline drop-shadow-sm"
               >
                 +260 973 350816
               </a>
             </div>
           </div>
 
-          <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200/70 flex items-center gap-3">
-            <div className="w-9 h-9 rounded-lg bg-sky-100 text-sky-700 flex items-center justify-center shrink-0">
+          <div className="p-3.5 rounded-xl bg-white/20 border border-white/30 backdrop-blur-md flex items-center gap-3">
+            <div className="w-9 h-9 rounded-lg bg-sky-600/40 text-white flex items-center justify-center shrink-0 border border-white/30 backdrop-blur-md">
               <Building2 className="w-4 h-4" />
             </div>
             <div>
-              <span className="text-[10px] text-slate-500 font-bold uppercase block">Hostel Matron Desk</span>
-              <a href="tel:+260768364480" className="text-xs font-bold text-slate-900 hover:text-sky-600">
+              <span className="text-[10px] text-white/80 font-bold uppercase block drop-shadow-sm">Hostel Matron Desk</span>
+              <a href="tel:+260768364480" className="text-xs font-bold text-white hover:text-sky-200 drop-shadow-sm">
                 +260 768 364480
               </a>
             </div>

@@ -231,31 +231,31 @@ export const AdminBedSpaceManagement: React.FC = () => {
           </div>
 
           {pendingApps.length === 0 ? (
-            <div className="p-10 bg-white rounded-xl border border-sky-100 text-center">
-              <CheckCircle2 className="w-10 h-10 text-sky-600 mx-auto mb-2" />
-              <h3 className="text-sm font-bold text-slate-800">All applications processed</h3>
-              <p className="text-xs text-slate-500 mt-0.5">There are no pending student applications requiring allocation.</p>
+            <div className="p-10 bg-white/25 backdrop-blur-[25px] rounded-xl border border-white/30 text-center text-white">
+              <CheckCircle2 className="w-10 h-10 text-emerald-300 mx-auto mb-2" />
+              <h3 className="text-sm font-bold text-white drop-shadow-sm">All applications processed</h3>
+              <p className="text-xs text-white/80 mt-0.5">There are no pending student applications requiring allocation.</p>
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {pendingApps.map((app) => (
-                <div key={app.id} className="bg-white rounded-xl border border-sky-100 p-4 shadow-xs space-y-3">
+                <div key={app.id} className="bg-white/25 backdrop-blur-[25px] rounded-xl border border-white/30 p-4 shadow-md space-y-3 text-white">
                   <div className="flex justify-between items-start">
                     <div>
-                      <span className="text-[10px] font-bold uppercase text-slate-400 block">{app.applicationNumber}</span>
-                      <h4 className="text-sm font-extrabold text-slate-900">{app.studentName}</h4>
-                      <p className="text-xs text-slate-600">{app.program} • {app.yearOfStudy}</p>
+                      <span className="text-[10px] font-bold uppercase text-sky-200 block drop-shadow-sm">{app.applicationNumber}</span>
+                      <h4 className="text-sm font-extrabold text-white drop-shadow-sm">{app.studentName}</h4>
+                      <p className="text-xs text-white/80">{app.program} • {app.yearOfStudy}</p>
                     </div>
 
-                    <span className="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-sky-100 text-sky-800 border border-sky-200">
+                    <span className="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-emerald-500/25 text-emerald-200 border border-emerald-300/30 backdrop-blur-md">
                       PAID (K{app.amountPaidZMW?.toLocaleString()})
                     </span>
                   </div>
 
-                  <div className="grid grid-cols-2 gap-2 text-xs bg-slate-50 p-2.5 rounded-lg border border-slate-100">
+                  <div className="grid grid-cols-2 gap-2 text-xs bg-white/20 p-2.5 rounded-lg border border-white/30 backdrop-blur-md">
                     <div>
-                      <span className="text-slate-400 text-[10px] block">Student ID:</span>
-                      <span className="font-semibold">{app.studentNumber}</span>
+                      <span className="text-white/70 text-[10px] block">Student ID:</span>
+                      <span className="font-semibold text-white">{app.studentNumber}</span>
                     </div>
                     <div>
                       <span className="text-slate-400 text-[10px] block">Gender / Hall:</span>
@@ -342,7 +342,7 @@ export const AdminBedSpaceManagement: React.FC = () => {
 
       {/* SUBTAB 2: Check-In & Check-Out Desk */}
       {activeSubTab === 'checkin_desk' && (
-        <div className="bg-white rounded-2xl border border-sky-100 p-6 shadow-xs space-y-5">
+        <div className="bg-white/25 backdrop-blur-[25px] rounded-2xl border border-white/30 p-6 shadow-md space-y-5 text-white">
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 border-b border-slate-100 pb-4">
             <div>
               <h2 className="text-base font-bold text-slate-900 flex items-center gap-2">
@@ -440,15 +440,15 @@ export const AdminBedSpaceManagement: React.FC = () => {
 
       {/* SUBTAB 3: Room & Maintenance Master */}
       {activeSubTab === 'room_manager' && (
-        <div className="bg-white rounded-2xl border border-sky-100 p-6 shadow-xs space-y-4">
-          <div className="flex justify-between items-center border-b border-slate-100 pb-3">
+        <div className="bg-white/25 backdrop-blur-[25px] rounded-2xl border border-white/30 p-6 shadow-md space-y-4 text-white">
+          <div className="flex justify-between items-center border-b border-white/20 pb-3">
             <div>
-              <h2 className="text-base font-bold text-slate-900">Hostel Room Master & Maintenance Toggles</h2>
-              <p className="text-xs text-slate-500">Toggle bed status between Vacant and Under Maintenance.</p>
+              <h2 className="text-base font-bold text-white drop-shadow-sm">Hostel Room Master & Maintenance Toggles</h2>
+              <p className="text-xs text-white/80">Toggle bed status between Vacant and Under Maintenance.</p>
             </div>
             <button
               onClick={() => exportDailyReport()}
-              className="text-xs text-sky-700 font-bold hover:underline"
+              className="text-xs text-sky-200 font-bold hover:text-white hover:underline drop-shadow-sm"
             >
               Export Inventory Report →
             </button>
@@ -501,15 +501,15 @@ export const AdminBedSpaceManagement: React.FC = () => {
 
       {/* SUBTAB 4: Payment Gateway Logs */}
       {activeSubTab === 'payments' && (
-        <div className="bg-white rounded-2xl border border-sky-100 p-6 shadow-xs space-y-4">
-          <div className="flex justify-between items-center border-b border-slate-100 pb-3">
+        <div className="bg-white/25 backdrop-blur-[25px] rounded-2xl border border-white/30 p-6 shadow-md space-y-4 text-white">
+          <div className="flex justify-between items-center border-b border-white/20 pb-3">
             <div>
-              <h2 className="text-base font-bold text-slate-900">Electronic Accommodation Fee Transactions</h2>
-              <p className="text-xs text-slate-500">Live transaction logs from MTN MoMo, Airtel Money, Zamtel & Cards.</p>
+              <h2 className="text-base font-bold text-white drop-shadow-sm">Electronic Accommodation Fee Transactions</h2>
+              <p className="text-xs text-white/80">Live transaction logs from MTN MoMo, Airtel Money, Zamtel & Cards.</p>
             </div>
             <div className="text-right">
-              <span className="text-xs text-slate-400">Total Collected:</span>
-              <span className="text-sm font-black text-sky-800 block">
+              <span className="text-xs text-white/70">Total Collected:</span>
+              <span className="text-sm font-black text-sky-200 block drop-shadow-sm">
                 K{payments.reduce((acc, p) => acc + p.amountZMW, 0).toLocaleString()} ZMW
               </span>
             </div>
@@ -552,7 +552,7 @@ export const AdminBedSpaceManagement: React.FC = () => {
 
       {/* SUBTAB 5: Security & Encrypted DB (RBAC) */}
       {activeSubTab === 'security_rbac' && (
-        <div className="bg-white rounded-2xl border border-sky-100 p-6 shadow-xs space-y-6">
+        <div className="bg-white/25 backdrop-blur-[25px] rounded-2xl border border-white/30 p-6 shadow-md space-y-6 text-white">
           <div className="border-b border-slate-100 pb-3 flex justify-between items-center">
             <div>
               <h2 className="text-base font-bold text-slate-900 flex items-center gap-2">
@@ -737,17 +737,17 @@ export const AdminBedSpaceManagement: React.FC = () => {
           </div>
 
           {/* Resident Tenure & Expiry Control Table */}
-          <div className="bg-white rounded-2xl border border-sky-100 shadow-xs overflow-hidden">
-            <div className="p-4 border-b border-slate-100 flex justify-between items-center bg-slate-50/60">
+          <div className="bg-white/25 backdrop-blur-[25px] rounded-2xl border border-white/30 shadow-md overflow-hidden text-white">
+            <div className="p-4 border-b border-white/20 flex justify-between items-center bg-white/10 backdrop-blur-md">
               <div>
-                <h3 className="text-xs font-extrabold text-slate-900 uppercase tracking-wider">
+                <h3 className="text-xs font-extrabold text-white uppercase tracking-wider drop-shadow-sm">
                   Resident Scholar Accommodation Tenure Roster
                 </h3>
-                <p className="text-[11px] text-slate-500">
+                <p className="text-[11px] text-white/80">
                   Click "Trigger Alert UI" on any student to test notification alerts
                 </p>
               </div>
-              <span className="text-xs font-mono text-sky-800 bg-sky-100 px-2 py-0.5 rounded font-bold">
+              <span className="text-xs font-mono text-white bg-white/20 px-2 py-0.5 rounded font-bold border border-white/30">
                 Today: 30 Sep 2026
               </span>
             </div>
@@ -874,7 +874,7 @@ export const AdminBedSpaceManagement: React.FC = () => {
           </div>
 
           {/* Mock Automated SMS Dispatch Logs */}
-          <div className="bg-white rounded-2xl border border-sky-100 p-5 shadow-xs space-y-3">
+          <div className="bg-white/25 backdrop-blur-[25px] rounded-2xl border border-white/30 p-5 shadow-md space-y-3 text-white">
             <div className="flex items-center justify-between border-b border-slate-100 pb-2">
               <div className="flex items-center gap-2">
                 <span className="p-1 rounded-lg bg-sky-100 text-sky-800 font-bold">

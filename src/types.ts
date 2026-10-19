@@ -1,4 +1,32 @@
-export type UserRole = 'admin' | 'staff' | 'student';
+export type UserRole = 'student' | 'lecturer' | 'accountant' | 'staff' | 'admin' | 'admissions';
+
+export interface UserPrivilegeConfig {
+  canApplyForBed: boolean;
+  canViewResidentPass: boolean;
+  canReconcilePayments: boolean;
+  canViewDefaulters: boolean;
+  canCheckInCheckOut: boolean;
+  canIssueKeys: boolean;
+  canAllocateBeds: boolean;
+  canManageRoles: boolean;
+  canViewFinancialAudit: boolean;
+  canReviewAdmissions: boolean;
+  canEnterStudentResults: boolean;
+  canManageStaffMembers: boolean;
+}
+
+export interface UserRoleProfile {
+  role: UserRole;
+  title: string;
+  shortLabel: string;
+  department: string;
+  defaultUserName: string;
+  staffOrStudentId: string;
+  badgeColor: string;
+  description: string;
+  allowedTabs: string[];
+  privileges: UserPrivilegeConfig;
+}
 
 export type Gender = 'female' | 'male';
 
@@ -219,3 +247,51 @@ export interface AdmissionApplication {
   reviewerRemarks?: string;
   offerLetterAvailable?: boolean;
 }
+
+export type StaffEmploymentStatus = 'active' | 'on_leave' | 'retired' | 'contract';
+
+export type StaffCategory = 'lecturer' | 'warden' | 'matron' | 'accountant' | 'security' | 'maintenance' | 'administrative';
+
+export interface StaffMember {
+  id: string;
+  employeeNumber: string; // e.g., "NK-LEC-014", "NK-STF-082"
+  fullName: string;
+  nrcNumber: string;
+  gender: Gender;
+  email: string;
+  phone: string;
+  category: StaffCategory;
+  jobTitle: string; // e.g., "Senior Nursing Lecturer", "Lead Clinical Instructor", "Hostel Warden"
+  department: string; // e.g., "School of Health Sciences", "School of Education", "Finance Directorate"
+  status: StaffEmploymentStatus; // 'active' | 'on_leave' | 'retired' | 'contract'
+  assignedCourses?: string[]; // e.g., ["Anatomy & Physiology", "Clinical Pharmacology"]
+  dateJoined: string;
+  leaveStartDate?: string;
+  leaveEndDate?: string;
+  retiredDate?: string;
+  qualification?: string;
+  notes?: string;
+}
+
+export interface StudentCourseResult {
+  id: string;
+  studentId: string;
+  studentName: string;
+  studentNumber: string;
+  program: string;
+  courseCode: string;
+  courseTitle: string;
+  semester: 'Semester 1' | 'Semester 2';
+  academicYear: string;
+  continuousAssessment: number; // Max 40
+  clinicalOrPracticum: number; // Max 20
+  finalExam: number; // Max 40
+  totalScore: number; // Max 100
+  letterGrade: 'A+' | 'A' | 'B+' | 'B' | 'C' | 'D' | 'F';
+  remark: 'Distinction' | 'Merit' | 'Credit' | 'Pass' | 'Fail / Supplementary';
+  lecturerId: string;
+  lecturerName: string;
+  status: 'draft' | 'submitted' | 'approved';
+  lastUpdated: string;
+}
+
