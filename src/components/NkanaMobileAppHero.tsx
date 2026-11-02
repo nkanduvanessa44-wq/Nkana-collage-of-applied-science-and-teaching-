@@ -3,10 +3,17 @@ import { useApp } from '../context/AppContext';
 import { ShieldCheck } from 'lucide-react';
 
 export const NkanaMobileAppHero: React.FC = () => {
-  const { setActiveTab, isLoggedIn, setIsLoggedIn } = useApp();
+  const { setActiveTab, isLoggedIn, setIsLoggedIn, effectiveView } = useApp();
+  const isDesktop = effectiveView === 'desktop';
 
   return (
-    <section className="relative w-full sm:max-w-[460px] mx-auto min-h-[calc(100vh-56px)] sm:min-h-[820px] aspect-[9/16] sm:rounded-[36px] overflow-hidden shadow-2xl flex flex-col justify-between select-none">
+    <section
+      className={`relative w-full mx-auto overflow-hidden shadow-2xl flex flex-col justify-between select-none transition-all duration-300 ${
+        isDesktop
+          ? 'max-w-7xl min-h-[580px] lg:min-h-[660px] rounded-2xl sm:rounded-3xl my-2 sm:my-4'
+          : 'max-w-[460px] min-h-[calc(100vh-56px)] sm:min-h-[820px] aspect-[9/16] sm:rounded-[36px]'
+      }`}
+    >
       {/* BACKGROUND: Edge-to-edge ultra sharp photo of Nkana College brick building (red brick 2-storey with white pillars, yellow roof, paved courtyard, blue sky) - no blur, immersive, covers entire screen top to bottom. Bright daylight. */}
       <img
         src="/nkana-brick-campus.jpg"
@@ -17,7 +24,11 @@ export const NkanaMobileAppHero: React.FC = () => {
       {/* NO duplicate header! Top blue bar is only in Navbar.tsx. Zero second college title bars. */}
 
       {/* MAIN FLOATING CONTENT ON BUILDING: NO frosted glass, NO blurry gray cards, NO translucent pills, NO gray bubbles. */}
-      <div className="relative z-10 w-full flex-1 flex flex-col justify-between pt-24 sm:pt-28 pb-10 sm:pb-8 px-5 sm:px-6">
+      <div className={`relative z-10 w-full flex-1 flex flex-col justify-between ${
+        isDesktop
+          ? 'pt-16 sm:pt-20 pb-8 sm:pb-10 px-6 sm:px-12'
+          : 'pt-24 sm:pt-28 pb-10 sm:pb-8 px-5 sm:px-6'
+      }`}>
         
         {/* Top spacing ensuring clock tower and upper campus architecture stay clearly visible */}
         <div className="pt-2 sm:pt-4" />

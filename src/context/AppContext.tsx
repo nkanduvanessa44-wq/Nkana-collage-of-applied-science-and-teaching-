@@ -113,6 +113,14 @@ interface AppContextType {
   saveStudentResult: (result: Omit<StudentCourseResult, 'id' | 'lastUpdated'> & { id?: string }) => StudentCourseResult;
   submitCourseResults: (courseCode: string) => void;
   approveCourseResults: (courseCode: string) => void;
+
+  // View Scaling & Device Modes (Desktop View vs Mobile View)
+  viewMode: 'auto' | 'desktop' | 'mobile';
+  setViewMode: (mode: 'auto' | 'desktop' | 'mobile') => void;
+  effectiveView: 'desktop' | 'mobile';
+  scalePercent: number;
+  setScalePercent: (percent: number) => void;
+  windowWidth: number;
 }
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
@@ -132,6 +140,43 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [currentRole, setCurrentRole] = useState<UserRole>('student');
   const [activeTab, setActiveTab] = useState<string>('home');
   const [selectedHallId, setSelectedHallId] = useState<string>('all');
+
+  // View Scaling & Device Modes (Desktop View vs Mobile View)
+  const [viewMode, setViewModeState] = useState<'auto' | 'desktop' | 'mobile'>(() => {
+    try {
+      const saved = localStorage.getItem('nkana_view_mode');
+      if (saved === 'desktop' || saved === 'mobile' || saved === 'auto') return saved;
+    } catch (e) {}
+    return 'auto';
+  });
+
+  const [windowWidth, setWindowWidth] = useState<number>(() => {
+    return typeof window !== 'undefined' ? window.innerWidth : 1200;
+  });
+
+  const [scalePercent, setScalePercent] = useState<number>(100);
+
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const setViewMode = (mode: 'auto' | 'desktop' | 'mobile') => {
+    setViewModeState(mode);
+    try {
+      localStorage.setItem('nkana_view_mode', mode);
+    } catch (e) {}
+  };
+
+  const effectiveView: 'desktop' | 'mobile' =
+    viewMode === 'desktop'
+      ? 'desktop'
+      : viewMode === 'mobile'
+      ? 'mobile'
+      : windowWidth >= 1024
+      ? 'desktop'
+      : 'mobile';
 
   const [halls] = useState<HostelHall[]>(INITIAL_HOSTEL_HALLS);
   const [rooms, setRooms] = useState<Room[]>(INITIAL_ROOMS);
@@ -1110,7 +1155,13 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         studentResults,
         saveStudentResult,
         submitCourseResults,
-        approveCourseResults
+        approveCourseResults,
+        viewMode,
+        setViewMode,
+        effectiveView,
+        scalePercent,
+        setScalePercent,
+        windowWidth
       }}
     >
       {children}

@@ -18,9 +18,17 @@ import { AdminStaffManagement } from './components/AdminStaffManagement';
 import { LecturerResultsEntryView } from './components/LecturerResultsEntryView';
 import { Footer } from './components/Footer';
 import { BedPaymentExpiryAlertUI } from './components/BedPaymentExpiryAlertUI';
+import { ViewScaleController } from './components/ViewScaleController';
 
 const AppContent: React.FC = () => {
-  const { activeTab, setActiveTab } = useApp();
+  const {
+    activeTab,
+    setActiveTab,
+    viewMode,
+    effectiveView,
+    scalePercent,
+    windowWidth
+  } = useApp();
 
   React.useEffect(() => {
     // Support direct route links (e.g., /apply, /track, /portal, /hostel, /programs, /roles, /finance)
@@ -60,6 +68,14 @@ const AppContent: React.FC = () => {
     }
   }, [setActiveTab]);
 
+  // Scaling calculations
+  const isForcedDesktopOnMobile = viewMode === 'desktop' && windowWidth < 1280;
+  const isForcedMobileOnDesktop = viewMode === 'mobile' && windowWidth >= 768;
+
+  const mobileDesktopRatio = windowWidth < 1280 ? Math.max(0.28, windowWidth / 1280) : 1;
+  const zoomFactor = scalePercent / 100;
+  const totalScale = isForcedDesktopOnMobile ? mobileDesktopRatio * zoomFactor : zoomFactor;
+
   return (
     <div className="relative min-h-screen text-slate-900 flex flex-col font-sans antialiased overflow-x-hidden">
       {/* Background image FULL BRIGHT at 100% opacity, object-cover full screen behind everything, z-0, NO dark overlay */}
@@ -69,8 +85,25 @@ const AppContent: React.FC = () => {
         className="fixed inset-0 w-full h-full object-cover object-center z-0 pointer-events-none"
       />
 
-      {/* All content z-10 on top with low-opacity glass so image shows through */}
-      <div className="relative z-10 flex flex-col min-h-screen">
+      {/* Main Container with responsive scaling */}
+      <div
+        className={`relative z-10 flex flex-col min-h-screen ${
+          isForcedMobileOnDesktop ? 'w-full max-w-[440px] mx-auto my-4 rounded-[36px] shadow-2xl border-4 border-[#0A193F] overflow-hidden bg-slate-900/10' : 'w-full'
+        }`}
+        style={
+          isForcedDesktopOnMobile
+            ? {
+                width: '1280px',
+                transform: `scale(${totalScale})`,
+                transformOrigin: 'top left',
+              }
+            : zoomFactor !== 1
+            ? {
+                zoom: zoomFactor,
+              }
+            : undefined
+        }
+      >
         <Navbar />
 
         {activeTab === 'portal_login' ? (
@@ -100,6 +133,9 @@ const AppContent: React.FC = () => {
 
         {activeTab !== 'portal_login' && <Footer />}
       </div>
+
+      {/* View Scale & Mode Controller (Desktop vs Mobile Toggle + Zoom) */}
+      <ViewScaleController />
     </div>
   );
 };
